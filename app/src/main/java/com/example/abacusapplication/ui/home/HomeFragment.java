@@ -37,15 +37,13 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Button loginbutton =view.findViewById(R.id.loginbutton);
-        EditText ip=view.findViewById(R.id.serverip);
         EditText username=view.findViewById(R.id.studentusername);
         EditText password=view.findViewById(R.id.studentpassword);
-        ip.setText("192.168.0.0:3000");
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
-
+        username.setText("ankitborude");
+        password.setText("ankit@123");
         loginbutton.setOnClickListener(v->{
             progressIndicator.show();
-            String ipText = ip.getText().toString();
             String usernameText = username.getText().toString();
             String passwordText = password.getText().toString();
 
@@ -64,7 +62,7 @@ public class HomeFragment extends Fragment {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
                         progressIndicator.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Login Successfull",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Login Successfull",Toast.LENGTH_SHORT).show();
                     } else {
                         ApiError error = client.convertError(response.errorBody());
                         progressIndicator.hide();
@@ -77,10 +75,6 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                 }
             });
-            // Combine the text into a single string
-            String combinedText = "IP: " + ipText + ", Username: " + usernameText + ", Password: " + passwordText;
-
-            Toast.makeText(requireContext(), combinedText , Toast.LENGTH_SHORT).show();
         });
         return view;
     }

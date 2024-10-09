@@ -71,16 +71,6 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:id="@+id/serverip"
-            android:layout_marginBottom="18dp"
-            android:hint="Server IP"
-            android:inputType="text"
-            android:padding="12dp" />
-
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

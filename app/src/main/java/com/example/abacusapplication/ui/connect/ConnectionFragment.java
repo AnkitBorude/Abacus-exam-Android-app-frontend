@@ -39,6 +39,7 @@ public class ConnectionFragment extends Fragment {
         if(RetrofitClient.getInstance()!=null)
         {
             btn.setBackgroundResource(R.drawable.roundbutton_green);
+            btn.setText("RE-CONNECT");
         }
         btn.setOnClickListener(view1->{
         progressIndicator.show();

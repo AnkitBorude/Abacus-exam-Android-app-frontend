@@ -64,14 +64,6 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="18dp"
-            android:hint="Server IP"
-            android:inputType="text"
-            android:padding="12dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
