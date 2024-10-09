@@ -1,5 +1,6 @@
 package com.example.abacusapplication.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.example.abacusapplication.data.RetrofitClient;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
+import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.BaseProgressIndicator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -39,6 +41,7 @@ public class HomeFragment extends Fragment {
         Button loginbutton =view.findViewById(R.id.loginbutton);
         EditText username=view.findViewById(R.id.studentusername);
         EditText password=view.findViewById(R.id.studentpassword);
+        TextView signupbtn=view.findViewById(R.id.studentsignupbtn);
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
         username.setText("ankitborude");
         password.setText("ankit@123");
@@ -76,6 +79,11 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
+        signupbtn.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), StudentRegistrationActivity.class);
+            startActivity(intent);
+        });
+
         return view;
     }
 

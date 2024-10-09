@@ -1,22 +1,31 @@
 package com.example.abacusapplication.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.abacusapplication.R;
+import com.example.abacusapplication.data.ApiService;
+import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.models.ApiError;
+import com.example.abacusapplication.models.ApiResponse;
+import com.example.abacusapplication.models.LoginResponse;
+import com.example.abacusapplication.models.Student;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StudentRegistrationActivity extends AppCompatActivity {
 
+    CircularProgressIndicator progressIndicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,22 +43,22 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         levelSpinner.setAdapter(adapter);
         classSpinner.setAdapter(adapter);
 
-        Button registerbtn=findViewById(R.id.registerButton);
+       progressIndicator = findViewById(R.id.progress_circular);
+
+        Button registerbtn=findViewById(R.id.registerbutton);
         Button backtologinbtn=findViewById(R.id.backToLoginButton);
 
         registerbtn.setOnClickListener(view->{
-            if(validateForm())
-            {
-                Toast.makeText(StudentRegistrationActivity.this,"Valid data format",Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(StudentRegistrationActivity.this,"Invalid format",Toast.LENGTH_SHORT).show();
-            }
-
+           if(!register()) {
+               Toast.makeText(StudentRegistrationActivity.this,"Please fill proper data",Toast.LENGTH_SHORT).show();
+           }
+        });
+        backtologinbtn.setOnClickListener(view->{
+            finish();
         });
     }
 
-    private boolean validateForm() {
+    private boolean register() {
         boolean isValid = true;
 
         String fullName = ((EditText)findViewById(R.id.fullNameEditText)).getText().toString().trim();
@@ -83,7 +92,44 @@ public class StudentRegistrationActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.passwordEditText)).setError("Password is required");
             isValid = false;
         }
-        return isValid;
-    }
+        if (isValid)
+        {
+            progressIndicator.show();
+            Student student=new Student(fullName,username,studentClass,level,email,phoneNo,password);
+            RetrofitClient client=RetrofitClient.getInstance();
+            if(client==null)
+            {
+                progressIndicator.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Connect to server First",Toast.LENGTH_LONG).show();
+                return false;
+            }
+            ApiService service= client.getApi();
+            Call<ApiResponse> call=service.studentRegister(student);
 
+            call.enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    if (response.isSuccessful()) {
+                        ApiResponse response1 = response.body();
+                        progressIndicator.setVisibility(View.GONE);
+                        Toast.makeText(StudentRegistrationActivity.this,"Student Registration Successfull",Toast.LENGTH_SHORT).show();
+                    } else {
+                        ApiError error = client.convertError(response.errorBody());
+                        progressIndicator.setVisibility(View.GONE);
+                        Toast.makeText(StudentRegistrationActivity.this,error.getError(),Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    progressIndicator.setVisibility(View.GONE);
+                    Toast.makeText(StudentRegistrationActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
 }
