@@ -12,4 +12,9 @@ import com.example.abacusapplication.models.LoginResponse;
 public interface ApiService {
     @POST("student/login")
     Call<LoginResponse> studentLogin(@Body LoginRequest req);
+    @GET("echo")
+    Call<Echoreponse> echo();
+    class Echoreponse{
+       public boolean echoed;
+    }
 }

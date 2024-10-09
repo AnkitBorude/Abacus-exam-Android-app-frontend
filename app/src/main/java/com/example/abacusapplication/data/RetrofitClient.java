@@ -55,9 +55,15 @@ public class RetrofitClient {
     }
 
     // 8. Singleton getInstance method
-    public static synchronized RetrofitClient getInstance(String baseurl) {
+    public static synchronized  RetrofitClient updateInstance(String baseurl)
+    {
+        instance=null;
+        instance=new RetrofitClient(baseurl);
+        return instance;
+    }
+    public static synchronized RetrofitClient getInstance(){
         if (instance == null) {
-            instance = new RetrofitClient(baseurl);
+       return null;
         }
         return instance;
     }

@@ -15,5 +15,10 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.abacusapplication.ui.dashboard.DashboardFragment"
         android:label="Admin Login"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard"/>
+    <fragment
+        android:id="@+id/navigation_connect"
+        android:name="com.example.abacusapplication.ui.connect.ConnectionFragment"
+        android:label="Connect"
+        tools:layout="@layout/fragment_connect"/>
 </navigation>

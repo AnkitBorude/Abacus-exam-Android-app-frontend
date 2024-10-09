@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-
+    RetrofitClient client;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -49,7 +49,13 @@ public class HomeFragment extends Fragment {
             String usernameText = username.getText().toString();
             String passwordText = password.getText().toString();
 
-            RetrofitClient client=RetrofitClient.getInstance(ipText);
+            client = RetrofitClient.getInstance();
+            if(client==null)
+            {
+                progressIndicator.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Connect to server First",Toast.LENGTH_LONG).show();
+                return;
+            }
             ApiService apiService = client.getApi();
             Call<LoginResponse> call =apiService.studentLogin(new LoginRequest(usernameText,passwordText));
             call.enqueue(new Callback<LoginResponse>() {
@@ -58,7 +64,7 @@ public class HomeFragment extends Fragment {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
                         progressIndicator.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Login Sucessfull",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Login Successfull",Toast.LENGTH_LONG).show();
                     } else {
                         ApiError error = client.convertError(response.errorBody());
                         progressIndicator.hide();
