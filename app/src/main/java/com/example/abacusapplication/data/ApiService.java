@@ -14,6 +14,8 @@ import com.example.abacusapplication.models.Student;
 public interface ApiService {
     @POST("student/login")
     Call<LoginResponse> studentLogin(@Body LoginRequest req);
+    @POST("admin/login")
+    Call<LoginResponse> adminLogin(@Body LoginRequest req);
     @GET("echo")
     Call<Echoreponse> echo();
 
