@@ -61,7 +61,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/clothingCard"
+                android:id="@+id/profileCard"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
@@ -72,11 +72,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/clothingName"
-                        android:text="Clothing"
+                        android:id="@+id/profileName"
+                        android:text="Profile"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/clothingImage"/>
@@ -84,7 +83,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/clothingImage"
-                        android:src="@drawable/clothing"
+                        android:src="@drawable/baseline_co_present_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -103,10 +102,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/elecName"
-                        android:text="Electronics"
+                        android:text="Create Exam"
                         android:textSize="20sp"
-                        android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="@color/black"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/elecImage"/>
@@ -114,7 +112,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/elecImage"
-                        android:src="@drawable/electronics"
+                        android:src="@drawable/baseline_add_circle_outline_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -148,7 +146,7 @@
                         android:text="Home"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
+
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/homeImage"/>
@@ -156,7 +154,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/homeImage"
-                        android:src="@drawable/home"
+                        android:src="@drawable/round_cell_tower_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -178,7 +176,6 @@
                         android:text="Beauty"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/beautyImage"/>
@@ -186,7 +183,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/beautyImage"
-                        android:src="@drawable/beauty"
+                        android:src="@drawable/man_161282"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -220,7 +217,6 @@
                         android:text="Pharmacy"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/pharmImage"/>
@@ -228,7 +224,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/pharmImage"
-                        android:src="@drawable/pharmacy"
+                        android:src="@drawable/school"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -250,7 +246,6 @@
                         android:text="Groceries"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/grocImage"/>
@@ -258,7 +253,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/grocImage"
-                        android:src="@drawable/groceries"
+                        android:src="@drawable/teacher"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>

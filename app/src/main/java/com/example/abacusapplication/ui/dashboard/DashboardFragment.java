@@ -1,5 +1,6 @@
 package com.example.abacusapplication.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.abacusapplication.AdminMainActivity;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
@@ -36,10 +38,11 @@ public class DashboardFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         Button loginbutton =view.findViewById(R.id.loginbutton);
-        EditText username=view.findViewById(R.id.adminpassword);
+        EditText username=view.findViewById(R.id.adminusername);
         EditText password=view.findViewById(R.id.adminpassword);
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
-
+        username.setText("ankit123");
+        password.setText("ankit@123");
         loginbutton.setOnClickListener(v->{
             progressIndicator.show();
             String usernameText = username.getText().toString();
@@ -62,6 +65,9 @@ public class DashboardFragment extends Fragment {
                         TokenManager manager=TokenManager.getInstance(getContext());
                         manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
+
+                        Intent intent=new Intent(getContext(), AdminMainActivity.class);
+                        startActivity(intent);
                         Toast.makeText(getContext()," Admin Login Successfull",Toast.LENGTH_SHORT).show();
                     } else {
                         ApiError error = client.convertError(response.errorBody());
