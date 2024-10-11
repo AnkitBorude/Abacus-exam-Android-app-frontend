@@ -33,7 +33,7 @@ public class ConnectionFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_connect,container,false);
         EditText ip=view.findViewById(R.id.iptext);
         Button btn=view.findViewById(R.id.connectbtn);
-        ip.setText("192.168.0.0:3000");
+        ip.setText("192.168.1.42:3000");
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
 
         if(RetrofitClient.getInstance()!=null)
@@ -44,7 +44,7 @@ public class ConnectionFragment extends Fragment {
         btn.setOnClickListener(view1->{
         progressIndicator.show();
 
-            client = RetrofitClient.updateInstance(ip.getText().toString());
+            client = RetrofitClient.updateInstance(ip.getText().toString(),getContext());
 
             ApiService service= client.getApi();
             Call<ApiService.Echoreponse> call=service.echo();

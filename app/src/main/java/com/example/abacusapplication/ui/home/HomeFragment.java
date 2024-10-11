@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
                         manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
 
-                        manager.getToken();
                         Toast.makeText(getContext(),"Login Successfull Token--> "+manager.getToken(),Toast.LENGTH_SHORT).show();
                     } else {
                         ApiError error = client.convertError(response.errorBody());

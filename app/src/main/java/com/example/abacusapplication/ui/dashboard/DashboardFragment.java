@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.data.TokenManager;
 import com.example.abacusapplication.databinding.FragmentDashboardBinding;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
@@ -58,6 +59,8 @@ public class DashboardFragment extends Fragment {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
+                        TokenManager manager=TokenManager.getInstance(getContext());
+                        manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
                         Toast.makeText(getContext()," Admin Login Successfull",Toast.LENGTH_SHORT).show();
                     } else {

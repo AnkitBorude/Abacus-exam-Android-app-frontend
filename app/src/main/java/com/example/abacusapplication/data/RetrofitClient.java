@@ -3,6 +3,7 @@ package com.example.abacusapplication.data;
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class RetrofitClient {
     private Retrofit retrofit;
 
     // 4. Private constructor for Singleton pattern
-    private RetrofitClient(String baseurl) {
+    private RetrofitClient(String baseurl,Context context) {
         this.baseurl=" ";
         this.baseurl="http://"+baseurl+"/api/v1/";
         // 5. Logging interceptor setup
@@ -39,6 +40,7 @@ public class RetrofitClient {
        Log.d("Baseurl",this.baseurl);
         // 6. OkHttpClient setup with interceptor
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new AuthInterceptor(context))
                 .addInterceptor(logging)
                 // Additional options:
                 // .connectTimeout(30, TimeUnit.SECONDS)
@@ -55,10 +57,10 @@ public class RetrofitClient {
     }
 
     // 8. Singleton getInstance method
-    public static synchronized  RetrofitClient updateInstance(String baseurl)
+    public static synchronized  RetrofitClient updateInstance(String baseurl,Context context)
     {
         instance=null;
-        instance=new RetrofitClient(baseurl);
+        instance=new RetrofitClient(baseurl,context);
         return instance;
     }
     public static synchronized RetrofitClient getInstance(){
