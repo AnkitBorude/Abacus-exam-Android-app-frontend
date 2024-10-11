@@ -9,6 +9,7 @@ import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
+import com.example.abacusapplication.models.LoginData;
 import com.example.abacusapplication.models.Student;
 
 public interface ApiService {

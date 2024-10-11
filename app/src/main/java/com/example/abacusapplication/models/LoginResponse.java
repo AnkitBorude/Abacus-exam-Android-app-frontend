@@ -1,18 +1,6 @@
 package com.example.abacusapplication.models;
 
-class LoginData {
-        private String message;
-        private String token;
-
-        // Getters and setters
-        public String getMessage() { return message; }
-        public void setMessage(String message) { this.message = message; }
-
-        public String getToken() { return token; }
-        public void setToken(String token) { this.token = token; }
-    }
-
-    public class LoginResponse {
+public class LoginResponse {
         private LoginData data;
         private int statusCode;
         private boolean success;

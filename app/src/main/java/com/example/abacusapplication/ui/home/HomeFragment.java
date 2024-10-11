@@ -19,6 +19,7 @@ import com.example.abacusapplication.MainActivity;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.data.TokenManager;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
@@ -64,8 +65,12 @@ public class HomeFragment extends Fragment {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
+                        TokenManager manager=TokenManager.getInstance(getContext());
+                        manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
-                        Toast.makeText(getContext(),"Login Successfull",Toast.LENGTH_SHORT).show();
+
+                        manager.getToken();
+                        Toast.makeText(getContext(),"Login Successfull Token--> "+manager.getToken(),Toast.LENGTH_SHORT).show();
                     } else {
                         ApiError error = client.convertError(response.errorBody());
                         progressIndicator.hide();
