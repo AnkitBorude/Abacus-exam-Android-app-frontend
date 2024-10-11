@@ -41,7 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                app:strokeColor="#1dbf8d"
+                app:strokeWidth="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,11 +79,16 @@
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
-                    <Spinner
-                        android:id="@+id/spinner_level"
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/slider_level"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        />
+                        android:valueFrom="1"
+                        android:valueTo="10"
+                        android:stepSize="1"
+                        android:layout_marginBottom="16dp"/>
+
 
                     <!-- Duration -->
                     <TextView
@@ -140,7 +147,9 @@
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+            app:strokeColor="#1dbf8d"
+            app:strokeWidth="2dp">
 
 
                 <LinearLayout
