@@ -1,12 +1,12 @@
 package com.example.abacusapplication.models;
 
-public class ApiResponse {
-    private String data;
+public class ApiResponse <T>{
+    private T data;
     private int statusCode;
     private boolean success;
 
     // Getters
-    public String getData() {
+    public T getData() {
         return data;
     }
 
@@ -19,7 +19,7 @@ public class ApiResponse {
     }
 
     // Setters
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 

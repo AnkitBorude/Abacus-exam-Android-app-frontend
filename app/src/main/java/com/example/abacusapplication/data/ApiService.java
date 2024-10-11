@@ -5,6 +5,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
@@ -21,7 +22,11 @@ public interface ApiService {
     Call<Echoreponse> echo();
 
     @POST("student/register")
-    Call<ApiResponse>studentRegister(@Body Student student);
+    Call<ApiResponse<String>>studentRegister(@Body Student student);
+
+    @GET("admin/me")
+    Call<ApiResponse<Admin>> getAdmin();
+
     class Echoreponse{
        public boolean echoed;
     }

@@ -15,7 +15,6 @@ import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
-import com.example.abacusapplication.models.LoginResponse;
 import com.example.abacusapplication.models.Student;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -104,13 +103,13 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                 return false;
             }
             ApiService service= client.getApi();
-            Call<ApiResponse> call=service.studentRegister(student);
+            Call<ApiResponse<String>> call=service.studentRegister(student);
 
-            call.enqueue(new Callback<ApiResponse>() {
+            call.enqueue(new Callback<ApiResponse<String>>() {
                 @Override
-                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                     if (response.isSuccessful()) {
-                        ApiResponse response1 = response.body();
+                        ApiResponse<String> response1 = response.body();
                         progressIndicator.setVisibility(View.GONE);
                         Toast.makeText(StudentRegistrationActivity.this,"Student Registration Successfull",Toast.LENGTH_SHORT).show();
                     } else {
@@ -121,7 +120,7 @@ public class StudentRegistrationActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
                     progressIndicator.setVisibility(View.GONE);
                     Toast.makeText(StudentRegistrationActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
                 }
