@@ -67,7 +67,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:id="@+id/exam_name"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Level Spinner -->
@@ -108,7 +109,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:id="@+id/exam_duration"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Marks per Question -->
@@ -129,8 +131,39 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:id="@+id/marks_per_question"/>
                     </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Is Active"
+                        android:textSize="14sp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_is_active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <RadioButton
+                            android:id="@+id/rb_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/rb_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No"
+                            android:checked="true"/>
+                    </RadioGroup>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -148,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-            app:strokeColor="#1dbf8d"
+            app:strokeColor="#02CCFE"
             app:strokeWidth="2dp">
 
 
@@ -217,24 +250,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
+                            android:id="@+id/addition"
                             android:text="+" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
+                            android:id="@+id/subtraction"
                             android:text="-" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
+                            android:id="@+id/multiplication"
                             android:text="*" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="14sp"
+                            android:id="@+id/division"
                             android:text="/" />
                     </LinearLayout>
 
@@ -254,7 +291,7 @@
                         android:layout_height="wrap_content"
                         android:valueFrom="5"
                         android:valueTo="1000"
-                        android:stepSize="5"
+                        android:stepSize="1"
                         android:layout_marginBottom="16dp"/>
 
                     <TextView
@@ -272,28 +309,38 @@
                         android:layout_height="wrap_content"
                         android:valueFrom="5"
                         android:valueTo="1000"
-                        android:stepSize="5"
+                        android:stepSize="1"
                         android:layout_marginBottom="16dp"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:id="@+id/progress_circular"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
             <!-- Create Exam Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_create_exam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Exam"
-                android:layout_marginTop="24dp"/>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/roundbutton_green"
+            android:padding="10dp"
+            android:text="Create Exam"
+            android:id="@+id/create_exam"
+            android:textColor="@android:color/white" />
             <!-- Go Back Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_go_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Go Back"
-                android:layout_marginTop="8dp"
-                app:iconGravity="textStart"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/roundbutton_red"
+            android:padding="10dp"
+            android:text="Go Back"
+            android:id="@+id/go_back_button"
+            android:textColor="@android:color/white" />
 
         </LinearLayout>
 </LinearLayout>

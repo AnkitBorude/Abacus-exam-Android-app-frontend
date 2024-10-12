@@ -115,4 +115,19 @@ public class CreateExam {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String toString() {
+        return "CreateExam{" +
+                "maxTerms='" + maxTerms + '\'' +
+                ", totalQuestions='" + totalQuestions + '\'' +
+                ", operators=" + (operators != null ? String.join(", ", operators) : "null") +
+                ", maxNumber='" + maxNumber + '\'' +
+                ", minNumber='" + minNumber + '\'' +
+                ", isActive=" + isActive +
+                ", totalMarksPerQuestion=" + totalMarksPerQuestion +
+                ", level=" + level +
+                ", duration=" + duration +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

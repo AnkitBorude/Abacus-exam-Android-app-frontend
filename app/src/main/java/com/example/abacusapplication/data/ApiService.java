@@ -7,6 +7,7 @@ import retrofit2.http.POST;
 
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
+import com.example.abacusapplication.models.CreateExam;
 import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
@@ -27,6 +28,8 @@ public interface ApiService {
     @GET("admin/me")
     Call<ApiResponse<Admin>> getAdmin();
 
+    @POST("admin/exam")
+    Call<ApiResponse<String>> createExam(@Body CreateExam exam);
     class Echoreponse{
        public boolean echoed;
     }
