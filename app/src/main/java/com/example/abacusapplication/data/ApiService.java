@@ -28,7 +28,7 @@ public interface ApiService {
     @GET("admin/me")
     Call<ApiResponse<Admin>> getAdmin();
 
-    @POST("admin/exam")
+    @POST("exam")
     Call<ApiResponse<String>> createExam(@Body CreateExam exam);
     class Echoreponse{
        public boolean echoed;

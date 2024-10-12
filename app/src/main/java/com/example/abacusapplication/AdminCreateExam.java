@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +15,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.abacusapplication.data.ApiService;
+import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.models.ApiError;
+import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreateExam;
+import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminCreateExam extends AppCompatActivity {
 
@@ -117,6 +127,28 @@ public class AdminCreateExam extends AppCompatActivity {
             // Log the CreateExam object to verify
             Log.d("CreateExam Object", createExam.toString());
 
+            RetrofitClient client=RetrofitClient.getInstance();
+            ApiService service= client.getApi();
+            Call<ApiResponse<String>> call=service.createExam(createExam);
+            call.enqueue(new Callback<ApiResponse<String>>() {
+                @Override
+                public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                    if (response.isSuccessful()) {
+                        ApiResponse<String> response1 = response.body();
+                        progressIndicator.setVisibility(View.GONE);
+                        Toast.makeText(AdminCreateExam.this,"Exam Created SuccessFully",Toast.LENGTH_SHORT).show();
+                    } else {
+                        ApiError error = client.convertError(response.errorBody());
+                        progressIndicator.setVisibility(View.GONE);
+                        Toast.makeText(AdminCreateExam.this,error.getError(),Toast.LENGTH_LONG).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                    progressIndicator.setVisibility(View.GONE);
+                    Toast.makeText(AdminCreateExam.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
         });
 
         // Handle Go Back button click
