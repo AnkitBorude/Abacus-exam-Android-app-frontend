@@ -49,22 +49,7 @@ public class Student_Mcq_Exam extends AppCompatActivity {
 
         startTimer(120);
         submitExam.setOnClickListener(view->{
-            int score = 0;
-            int solvedQuestions=0;
-            int correctAnswers=0;
-            int incorrectAnswers=0;
-            int[] selectedAnswers = mcqAdapter.getSelectedAnswers();
-            for (int i = 0; i < questionList.size(); i++) {
-                if(selectedAnswers[i]!=-1) {
-                    solvedQuestions++;
-                    if (selectedAnswers[i] == questionList.get(i).getAnswer()) {
-                        correctAnswers++;
-                        score += questionList.get(i).getMarks(); // Add marks if the answer is correct
-                    }
-                }
-            }
-            incorrectAnswers=solvedQuestions-correctAnswers;
-            Toast.makeText(Student_Mcq_Exam.this, "Your Score: " + score+" Solved Questions "+solvedQuestions +" InCorrect "+incorrectAnswers, Toast.LENGTH_LONG).show();
+           submitExam();
         });
     }
     private void startTimer(int minutes) {
@@ -81,6 +66,7 @@ public class Student_Mcq_Exam extends AppCompatActivity {
             public void onFinish() {
                 // Timer finished, show a message or take other actions
                 timerTextView.setText("Time's up!");
+                submitExam();//submit exam when countdown ends
             }
         }.start();
     }
@@ -101,5 +87,24 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         }
 
         timerTextView.setText(timeFormatted);
+    }
+    private void submitExam()
+    {
+        int score = 0;
+        int solvedQuestions=0;
+        int correctAnswers=0;
+        int incorrectAnswers=0;
+        int[] selectedAnswers = mcqAdapter.getSelectedAnswers();
+        for (int i = 0; i < questionList.size(); i++) {
+            if(selectedAnswers[i]!=-1) {
+                solvedQuestions++;
+                if (selectedAnswers[i] == questionList.get(i).getAnswer()) {
+                    correctAnswers++;
+                    score += questionList.get(i).getMarks(); // Add marks if the answer is correct
+                }
+            }
+        }
+        incorrectAnswers=solvedQuestions-correctAnswers;
+        Toast.makeText(Student_Mcq_Exam.this, "Your Score: " + score+" Solved Questions "+solvedQuestions +" InCorrect "+incorrectAnswers, Toast.LENGTH_LONG).show();
     }
 }
