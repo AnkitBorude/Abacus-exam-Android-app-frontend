@@ -14,16 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.models.Question;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class McqAdapter extends RecyclerView.Adapter<McqAdapter.QuestionViewHolder> {
 
     private Context context;
     private List<Question> questionList;
-
+    private int[] selectedAnswers;
     public McqAdapter(Context context, List<Question> questionList) {
         this.context = context;
         this.questionList = questionList;
+        this.selectedAnswers = new int[questionList.size()];
+        Arrays.fill(selectedAnswers, -1);
     }
     @NonNull
     @Override
@@ -45,8 +48,21 @@ public class McqAdapter extends RecyclerView.Adapter<McqAdapter.QuestionViewHold
         holder.optionC.setText(String.valueOf(question.getOptionC()));
         holder.optionD.setText(String.valueOf(question.getOptionD()));
 
+        holder.optionsGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.option_a) {
+                selectedAnswers[position] = question.getOptionA();
+            } else if (checkedId == R.id.option_b) {
+                selectedAnswers[position] = question.getOptionB();
+            } else if (checkedId == R.id.option_c) {
+                selectedAnswers[position] = question.getOptionC();
+            } else if (checkedId == R.id.option_d) {
+                selectedAnswers[position] = question.getOptionD();
+            }
+        });
     }
-
+    public int[] getSelectedAnswers() {
+        return selectedAnswers;
+    }
     @Override
     public int getItemCount() {
         return questionList.size();

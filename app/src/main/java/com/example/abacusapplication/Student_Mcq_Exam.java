@@ -1,6 +1,8 @@
 package com.example.abacusapplication;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ public class Student_Mcq_Exam extends AppCompatActivity {
 
         setContentView(R.layout.activity_student_mcq_exam);
         recyclerView=findViewById(R.id.recyclerView);
+        Button submitExam=findViewById(R.id.submit_exam);
+        Button goback=findViewById(R.id.go_back_button);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         questionList = new ArrayList<>();
@@ -35,5 +39,24 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         // Initialize and set the adapter
        mcqAdapter = new McqAdapter(this, questionList);
         recyclerView.setAdapter(mcqAdapter);
+
+        submitExam.setOnClickListener(view->{
+            int score = 0;
+            int solvedQuestions=0;
+            int correctAnswers=0;
+            int incorrectAnswers=0;
+            int[] selectedAnswers = mcqAdapter.getSelectedAnswers();
+            for (int i = 0; i < questionList.size(); i++) {
+                if(selectedAnswers[i]!=-1) {
+                    solvedQuestions++;
+                    if (selectedAnswers[i] == questionList.get(i).getAnswer()) {
+                        correctAnswers++;
+                        score += questionList.get(i).getMarks(); // Add marks if the answer is correct
+                    }
+                }
+            }
+            incorrectAnswers=solvedQuestions-correctAnswers;
+            Toast.makeText(Student_Mcq_Exam.this, "Your Score: " + score+" Solved Questions "+solvedQuestions +" InCorrect "+incorrectAnswers, Toast.LENGTH_LONG).show();
+        });
     }
 }

@@ -31,4 +31,24 @@
         android:layout_weight="1"
         android:scrollbars="vertical" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundbutton_green"
+        android:padding="8dp"
+        android:text="Submit Exam"
+        android:id="@+id/submit_exam"
+        android:textColor="@android:color/white" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundbutton_red"
+        android:padding="8dp"
+        android:text="Go Back"
+        android:id="@+id/go_back_button"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>
