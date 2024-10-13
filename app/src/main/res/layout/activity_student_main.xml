@@ -95,7 +95,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
-                android:id="@+id/create_exam"
+                android:id="@+id/attend_exam"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

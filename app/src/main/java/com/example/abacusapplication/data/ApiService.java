@@ -8,11 +8,14 @@ import retrofit2.http.POST;
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreateExam;
+import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
 import com.example.abacusapplication.models.LoginData;
 import com.example.abacusapplication.models.Student;
+
+import java.util.List;
 
 public interface ApiService {
     @POST("student/login")
@@ -30,6 +33,8 @@ public interface ApiService {
 
     @POST("exam")
     Call<ApiResponse<String>> createExam(@Body CreateExam exam);
+    @GET("exam")
+    Call<ApiResponse<List<Exam>>> getExams();
     class Echoreponse{
        public boolean echoed;
     }

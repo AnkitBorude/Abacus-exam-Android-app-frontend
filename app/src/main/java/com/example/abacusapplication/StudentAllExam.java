@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,52 +15,57 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.abacusapplication.data.ApiService;
+import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.models.Admin;
+import com.example.abacusapplication.models.ApiError;
+import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreatedBy;
 import com.example.abacusapplication.models.Exam;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 public class StudentAllExam extends AppCompatActivity {
     private LinearLayout linearLayoutExams;
     private List<Exam> examList;
-
+   private CircularProgressIndicator progressIndicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_all_exam);
         linearLayoutExams = findViewById(R.id.linearLayoutExams);
-        examList=new ArrayList<>();
-        CreatedBy createdBy1 = new CreatedBy("Ankit Ravsaheb Borude");
-        CreatedBy createdBy2 = new CreatedBy("Jane Doe");
-        examList.add(new Exam(
-                "Demo Exam 1",
-                120,
-                "2",
-                10,
-                20,
-                2,
-                true,
-                createdBy1,
-                "2024-09-29T08:24:22.404Z",
-                "66f90eb6d2f850991d0ea86d"
-        ));
 
-        examList.add(new Exam(
-                "Demo Exam 2",
-                90,
-                "1",
-                8,
-                16,
-                2,
-                false,
-                createdBy2,
-                "2024-10-01T10:24:22.404Z",
-                "67a90fb6e1f840991d0fa87d"
-        ));
-
+        progressIndicator = findViewById(R.id.progress_circular);
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<List<Exam>>> call=apiService.getExams();
+        call.enqueue(new Callback<ApiResponse<List<Exam>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Exam>>> call, Response<ApiResponse<List<Exam>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<List<Exam>> response1 = response.body();
+                    createExamUI(response1.getData());
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<List<Exam>>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void createExamUI(List<Exam> exams)
+    {
         LayoutInflater inflater = LayoutInflater.from(this);
-        for (Exam exam : examList) {
+        for (Exam exam : exams) {
             View examCard = inflater.inflate(R.layout.item_exam_card, linearLayoutExams, false);
 
             // Set exam details
@@ -86,16 +92,20 @@ public class StudentAllExam extends AppCompatActivity {
                 buttonAttend.setText("ATTEND");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
                 buttonAttend.setOnClickListener(v -> {
-                    // Handle attend exam logic here
-//                    Intent intent = new Intent(MainActivity.this, ExamDetailsActivity.class);
-//                    // Pass the exam ID to the next activity
-//                    intent.putExtra("exam_id", exam.getId());
-//                    startActivity(intent);
+
+                    Intent intent = new Intent(StudentAllExam.this, Student_Mcq_Exam.class);
+                    // Pass the exam ID to the next activity
+                    intent.putExtra("examId", exam.getId());
+                    intent.putExtra("examName",exam.getTitle());
+                    intent.putExtra("examDuration",exam.getDuration());
+                    intent.putExtra("examTotalQuestion",exam.getTotal_questions());
+                    intent.putExtra("examTotalMarks",exam.getTotal_marks());
+                    startActivity(intent);
                 });
             }
-
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);
         }
+        progressIndicator.setVisibility(View.GONE);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.abacusapplication.models;
 
-public class Exam {
+import java.io.Serializable;
+
+public class Exam{
     private String title;
     private int duration;
     private String level;
