@@ -9,32 +9,65 @@
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF6200EE"
-        android:padding="16dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/horizontal_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FF6200EE"
-            android:padding="16dp"
-            android:orientation="horizontal">
-        <TextView
-            android:id="@+id/fixed_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time Remaining: "
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+        android:padding="1dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00 "
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+        <LinearLayout
+            android:id="@+id/verticle1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF6200EE"
+            android:padding="6dp"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Exam Title" />
+            <TextView
+                android:id="@+id/textViewTotalQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions: 10"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textViewMarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marks : 120"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/verticle2_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffc107"
+            android:padding="6dp"
+            android:gravity="center"
+            android:layout_weight="1.2"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textTimeRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/white"
+                android:textSize="24sp"/>
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30:00"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="22sp"/>
         </LinearLayout>
     </LinearLayout>
 

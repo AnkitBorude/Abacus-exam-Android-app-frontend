@@ -1,6 +1,7 @@
 package com.example.abacusapplication.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,23 +41,29 @@ public class McqAdapter extends RecyclerView.Adapter<McqAdapter.QuestionViewHold
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
 
         Question question = questionList.get(position);
-        holder.questionText.setText("Q."+(position+1)+" "+question.getQuestion());
+        holder.questionText.setText("Q. "+(position+1)+" "+question.getQuestion()+" = ?");
         holder.marksText.setText(" "+question.getMarks()+" Marks");
        //        // Bind options
+
         holder.optionA.setText(String.valueOf(question.getOptionA()));
         holder.optionB.setText(String.valueOf(question.getOptionB()));
         holder.optionC.setText(String.valueOf(question.getOptionC()));
         holder.optionD.setText(String.valueOf(question.getOptionD()));
 
         holder.optionsGroup.setOnCheckedChangeListener((group, checkedId) -> {
+
             if (checkedId == R.id.option_a) {
                 selectedAnswers[position] = question.getOptionA();
+                Log.d("Selected ","A");
             } else if (checkedId == R.id.option_b) {
                 selectedAnswers[position] = question.getOptionB();
+                Log.d("Selected ","b");
             } else if (checkedId == R.id.option_c) {
                 selectedAnswers[position] = question.getOptionC();
+                Log.d("Selected ","c");
             } else if (checkedId == R.id.option_d) {
                 selectedAnswers[position] = question.getOptionD();
+                Log.d("Selected ","d");
             }
         });
     }

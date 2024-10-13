@@ -1,5 +1,7 @@
 package com.example.abacusapplication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -16,10 +18,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abacusapplication.adapters.McqAdapter;
+import com.example.abacusapplication.data.ApiService;
+import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.models.ApiError;
+import com.example.abacusapplication.models.ApiResponse;
+import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.Question;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Student_Mcq_Exam extends AppCompatActivity {
     private McqAdapter mcqAdapter;
@@ -33,21 +44,62 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_student_mcq_exam);
+        Intent intent = getIntent();
+
+        String examId = intent.getStringExtra("examId");
+
+        String examName = intent.getStringExtra("examName");
+        int examDuration = intent.getIntExtra("examDuration", 0);
+        int examTotalQuestion = intent.getIntExtra("examTotalQuestion", 0);
+        int examTotalMarks = intent.getIntExtra("examTotalMarks", 0);
+
         recyclerView=findViewById(R.id.recyclerView);
         Button submitExam=findViewById(R.id.submit_exam);
         Button goback=findViewById(R.id.go_back_button);
         timerTextView=findViewById(R.id.timer);
+
+        TextView examTitle=findViewById(R.id.textViewTitle);
+        TextView totalQuestions=findViewById(R.id.textViewTotalQuestions);
+        TextView totalMarks=findViewById(R.id.textViewMarks);
+        examTitle.setText(""+examName);
+        totalQuestions.setText("Total Questions :"+examTotalQuestion+"");
+        totalMarks.setText("Total Marks :"+examTotalMarks+"");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         questionList = new ArrayList<>();
         questionList.add(new Question("149/7+150", 171, 2, 171, 136, 211, 111));
         questionList.add(new Question("What is 2+2?", 4, 1, 3, 4, 5, 6));
 
-        // Initialize and set the adapter
-       mcqAdapter = new McqAdapter(this, questionList);
-        recyclerView.setAdapter(mcqAdapter);
+        Context context=this;
 
-        startTimer(120);
+
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<List<Question>>> call=apiService.getQuestions(examId);
+        call.enqueue(new Callback<ApiResponse<List<Question>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Question>>> call, Response<ApiResponse<List<Question>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<List<Question>> response1 = response.body();
+                    questionList=response1.getData();
+                    mcqAdapter = new McqAdapter(context, questionList);
+                    recyclerView.setAdapter(mcqAdapter);
+                    startTimer(examDuration);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<List<Question>>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Initialize and set the adapter
+
+
         submitExam.setOnClickListener(view->{
            submitExam();
         });

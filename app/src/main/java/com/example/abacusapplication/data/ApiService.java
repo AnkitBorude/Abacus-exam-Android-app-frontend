@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
@@ -13,6 +14,7 @@ import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
 import com.example.abacusapplication.models.LoginData;
+import com.example.abacusapplication.models.Question;
 import com.example.abacusapplication.models.Student;
 
 import java.util.List;
@@ -35,6 +37,9 @@ public interface ApiService {
     Call<ApiResponse<String>> createExam(@Body CreateExam exam);
     @GET("exam")
     Call<ApiResponse<List<Exam>>> getExams();
+
+    @GET("exam/{examId}/questions")
+    Call<ApiResponse<List<Question>>> getQuestions(@Path("examId") String examId);
     class Echoreponse{
        public boolean echoed;
     }
