@@ -1,7 +1,10 @@
 package com.example.abacusapplication;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +25,9 @@ public class Student_Mcq_Exam extends AppCompatActivity {
     private McqAdapter mcqAdapter;
     private List<Question> questionList;
     private RecyclerView recyclerView;
+    private TextView timerTextView;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMillis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,7 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         Button submitExam=findViewById(R.id.submit_exam);
         Button goback=findViewById(R.id.go_back_button);
+        timerTextView=findViewById(R.id.timer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         questionList = new ArrayList<>();
@@ -40,6 +47,7 @@ public class Student_Mcq_Exam extends AppCompatActivity {
        mcqAdapter = new McqAdapter(this, questionList);
         recyclerView.setAdapter(mcqAdapter);
 
+        startTimer(120);
         submitExam.setOnClickListener(view->{
             int score = 0;
             int solvedQuestions=0;
@@ -58,5 +66,40 @@ public class Student_Mcq_Exam extends AppCompatActivity {
             incorrectAnswers=solvedQuestions-correctAnswers;
             Toast.makeText(Student_Mcq_Exam.this, "Your Score: " + score+" Solved Questions "+solvedQuestions +" InCorrect "+incorrectAnswers, Toast.LENGTH_LONG).show();
         });
+    }
+    private void startTimer(int minutes) {
+        // Convert minutes to milliseconds
+        timeLeftInMillis = minutes * 60 * 1000;
+
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateTimer();
+            }
+            @Override
+            public void onFinish() {
+                // Timer finished, show a message or take other actions
+                timerTextView.setText("Time's up!");
+            }
+        }.start();
+    }
+
+    private void updateTimer() {
+        int hours = (int) (timeLeftInMillis / 1000) / 3600;
+        int minutes = (int) ((timeLeftInMillis / 1000) % 3600) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeFormatted;
+
+        if (hours > 0) {
+            // If the duration is more than 1 hour, show hours too
+            timeFormatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            // Otherwise, show only minutes and seconds
+            timeFormatted = String.format("%02d:%02d", minutes, seconds);
+        }
+
+        timerTextView.setText(timeFormatted);
     }
 }
