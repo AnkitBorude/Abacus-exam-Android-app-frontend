@@ -1,5 +1,7 @@
 package com.example.abacusapplication.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Exam{
@@ -13,6 +15,15 @@ public class Exam{
     private CreatedBy created_by;
     private String createdAt;
     private String id;
+
+    @SerializedName("total_attended")
+    private int totalAttended;
+
+    @SerializedName("highest_score")
+    private int highestScore;
+
+    @SerializedName("unique_students")
+    private int uniqueStudents;
 
     // Getter and Setter methods
 
@@ -107,5 +118,14 @@ public class Exam{
 
     public void setId(String id) {
         this.id = id;
+    }
+    public int getTotalAttended() {
+        return this.totalAttended;
+    }
+    public Integer getHighestScore() {
+        return this.highestScore;
+    }
+    public int getUniqueStudents() {
+        return this.uniqueStudents;
     }
 }
