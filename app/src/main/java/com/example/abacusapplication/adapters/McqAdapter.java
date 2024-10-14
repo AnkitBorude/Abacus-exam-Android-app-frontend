@@ -50,20 +50,36 @@ public class McqAdapter extends RecyclerView.Adapter<McqAdapter.QuestionViewHold
         holder.optionC.setText(String.valueOf(question.getOptionC()));
         holder.optionD.setText(String.valueOf(question.getOptionD()));
 
+        holder.optionsGroup.setOnCheckedChangeListener(null);
+
+        holder.optionsGroup.clearCheck();
+
+        if (selectedAnswers[position] != -1) {
+            if (selectedAnswers[position]==question.getOptionA()) {
+                holder.optionA.setChecked(true);
+            } else if (selectedAnswers[position]==question.getOptionB()) {
+                holder.optionB.setChecked(true);
+            } else if (selectedAnswers[position]==question.getOptionC()) {
+                holder.optionC.setChecked(true);
+            } else if (selectedAnswers[position]==question.getOptionD()) {
+                holder.optionD.setChecked(true);
+            }
+        }
+
         holder.optionsGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
-            if (checkedId == R.id.option_a) {
+            if (checkedId == holder.optionA.getId()) {
                 selectedAnswers[position] = question.getOptionA();
-                Log.d("Selected ","A");
-            } else if (checkedId == R.id.option_b) {
+                Log.d("Selected", "A");
+            } else if (checkedId == holder.optionB.getId()) {
                 selectedAnswers[position] = question.getOptionB();
-                Log.d("Selected ","b");
-            } else if (checkedId == R.id.option_c) {
+                Log.d("Selected", "B");
+            } else if (checkedId == holder.optionC.getId()) {
                 selectedAnswers[position] = question.getOptionC();
-                Log.d("Selected ","c");
-            } else if (checkedId == R.id.option_d) {
+                Log.d("Selected", "C");
+            } else if (checkedId == holder.optionD.getId()) {
                 selectedAnswers[position] = question.getOptionD();
-                Log.d("Selected ","d");
+                Log.d("Selected", "D");
             }
         });
     }
