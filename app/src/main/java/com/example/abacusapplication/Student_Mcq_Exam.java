@@ -24,21 +24,33 @@ import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.Question;
+import com.example.abacusapplication.models.Result;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Student_Mcq_Exam extends AppCompatActivity {
+    RetrofitClient client;
+    ApiService apiService;
     private McqAdapter mcqAdapter;
     private List<Question> questionList;
     private RecyclerView recyclerView;
     private TextView timerTextView;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
+    String examId;
+    String examName;
+    int examDuration,examTotalQuestion,examTotalMarks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +58,11 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         setContentView(R.layout.activity_student_mcq_exam);
         Intent intent = getIntent();
 
-        String examId = intent.getStringExtra("examId");
-
-        String examName = intent.getStringExtra("examName");
-        int examDuration = intent.getIntExtra("examDuration", 0);
-        int examTotalQuestion = intent.getIntExtra("examTotalQuestion", 0);
-        int examTotalMarks = intent.getIntExtra("examTotalMarks", 0);
+        this.examId = intent.getStringExtra("examId");
+        examName = intent.getStringExtra("examName");
+        examDuration = intent.getIntExtra("examDuration", 0);
+        examTotalQuestion = intent.getIntExtra("examTotalQuestion", 0);
+        examTotalMarks = intent.getIntExtra("examTotalMarks", 0);
 
         recyclerView=findViewById(R.id.recyclerView);
         Button submitExam=findViewById(R.id.submit_exam);
@@ -74,9 +85,9 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         Context context=this;
 
 
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<Question>>> call=apiService.getQuestions(examId);
+        this.client =RetrofitClient.getInstance();
+        this.apiService = this.client.getApi();
+        Call<ApiResponse<List<Question>>> call=this.apiService.getQuestions(examId);
         call.enqueue(new Callback<ApiResponse<List<Question>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Question>>> call, Response<ApiResponse<List<Question>>> response) {
@@ -98,8 +109,6 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         });
 
         // Initialize and set the adapter
-
-
         submitExam.setOnClickListener(view->{
            submitExam();
         });
@@ -157,6 +166,53 @@ public class Student_Mcq_Exam extends AppCompatActivity {
             }
         }
         incorrectAnswers=solvedQuestions-correctAnswers;
+        int timeTaken= examDuration - (int)(timeLeftInMillis/1000/60);
+        String date=getTodayDate();
+
+        Result result=new Result();
+        result.setExam(examId);
+        result.setScore(score);
+        result.setDateCompleted(date);
+        result.setTimeTaken(timeTaken);
+        result.setTotalCorrect(correctAnswers);
+
+        Call <ApiResponse<String>> call=this.apiService.createResult(result);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Intent intent=new Intent(Student_Mcq_Exam.this,StudentFinalResult.class);
+                    intent.putExtra("examName",examName);
+                    intent.putExtra("examDuration",examDuration);
+                    intent.putExtra("examTotalQuestion",examTotalQuestion);
+                    intent.putExtra("examTotalMarks",examTotalMarks);
+                    intent.putExtra("Score",result.getScore());
+                    intent.putExtra("DateCompleted",result.getDateCompleted());
+                    intent.putExtra("timeTaken",result.getTimeTaken());
+                    intent.putExtra("totalCorrect",result.getTotalCorrect());
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Result Submitted Succesfully",Toast.LENGTH_SHORT);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
         Toast.makeText(Student_Mcq_Exam.this, "Your Score: " + score+" Solved Questions "+solvedQuestions +" InCorrect "+incorrectAnswers, Toast.LENGTH_LONG).show();
+    }
+
+    private String getTodayDate()
+    {
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(currentDate);
+        return formattedDate;
     }
 }

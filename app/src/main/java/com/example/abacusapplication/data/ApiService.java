@@ -15,6 +15,7 @@ import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
 import com.example.abacusapplication.models.LoginData;
 import com.example.abacusapplication.models.Question;
+import com.example.abacusapplication.models.Result;
 import com.example.abacusapplication.models.Student;
 
 import java.util.List;
@@ -40,6 +41,9 @@ public interface ApiService {
 
     @GET("exam/{examId}/questions")
     Call<ApiResponse<List<Question>>> getQuestions(@Path("examId") String examId);
+
+    @POST("result")
+    Call<ApiResponse<String>> createResult(@Body Result result);
     class Echoreponse{
        public boolean echoed;
     }

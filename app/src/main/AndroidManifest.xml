@@ -16,16 +16,17 @@
         android:theme="@style/Theme.AbacusApplication"
         tools:targetApi="31">
         <activity
+            android:name=".StudentFinalResult"
+            android:exported="false" />
+        <activity
             android:name=".StudentAllExam"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".StudentMainActivity"
             android:exported="false" />
         <activity
             android:name=".Student_Mcq_Exam"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".AdminProfile"
             android:exported="false" />
@@ -44,6 +45,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
