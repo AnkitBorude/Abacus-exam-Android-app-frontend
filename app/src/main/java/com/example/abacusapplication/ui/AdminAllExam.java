@@ -116,4 +116,48 @@ public class AdminAllExam extends AppCompatActivity {
         }
         progressIndicator.setVisibility(View.GONE);
     }
+    private void activateExam(String examId)
+    {
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.activateExam(examId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void deActivateExam(String examId)
+    {
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deactivateExam(examId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

@@ -44,6 +44,11 @@ public interface ApiService {
 
     @POST("result")
     Call<ApiResponse<String>> createResult(@Body Result result);
+
+    @POST("exam/{examId}/activate")
+    Call<ApiResponse<String>> activateExam(@Path("examId") String examId);
+    @POST("exam/{examId}/deactivate")
+    Call<ApiResponse<String>> deactivateExam(@Path("examId") String examId);
     class Echoreponse{
        public boolean echoed;
     }
