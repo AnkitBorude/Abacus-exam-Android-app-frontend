@@ -1,4 +1,4 @@
-package com.example.abacusapplication;
+package com.example.abacusapplication.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
+import com.example.abacusapplication.R;
+import com.example.abacusapplication.StudentAllExam;
+import com.example.abacusapplication.Student_Mcq_Exam;
 import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
 import com.example.abacusapplication.models.ApiError;
@@ -23,14 +30,17 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-public class StudentAllExam extends AppCompatActivity {
+
+public class AdminAllExam extends AppCompatActivity {
+
     private LinearLayout linearLayoutExams;
     private List<Exam> examList;
-   private CircularProgressIndicator progressIndicator;
+    private CircularProgressIndicator progressIndicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_all_exam);
+        setContentView(R.layout.activity_admin_all_exam);
+
         linearLayoutExams = findViewById(R.id.linearLayoutExams);
 
         progressIndicator = findViewById(R.id.progress_circular);
@@ -54,12 +64,13 @@ public class StudentAllExam extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+
     }
     private void createExamUI(List<Exam> exams)
     {
         LayoutInflater inflater = LayoutInflater.from(this);
         for (Exam exam : exams) {
-            View examCard = inflater.inflate(R.layout.item_student_exam_card, linearLayoutExams, false);
+            View examCard = inflater.inflate(R.layout.item_admin_exam_card, linearLayoutExams, false);
 
             // Set exam details
             TextView textViewTitle = examCard.findViewById(R.id.textViewTitle);
@@ -68,7 +79,9 @@ public class StudentAllExam extends AppCompatActivity {
             TextView textViewTotalQuestions = examCard.findViewById(R.id.textViewTotalQuestions);
             TextView marksperquestion=examCard.findViewById(R.id.totalmarksperquestion);
             TextView marks=examCard.findViewById(R.id.textViewMarks);
-            TextView createdBy=examCard.findViewById(R.id.textcreatedBy);
+            TextView totalAttended=examCard.findViewById(R.id.texttotaltimesattended);
+            TextView totalDistinctAttended=examCard.findViewById(R.id.texttotaldistinctattended);
+            TextView highestMarks=examCard.findViewById(R.id.texthighestscore);
 
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
 
@@ -78,23 +91,25 @@ public class StudentAllExam extends AppCompatActivity {
             textViewTotalQuestions.setText("Total Questions: " + exam.getTotal_questions());
             marksperquestion.setText("Marks Per Question: " +exam.getTotal_marks_per_question());
             marks.setText("Total Marks: "+exam.getTotal_marks());
-            createdBy.setText("Created by: "+exam.getCreated_by().getFullname());
+            totalAttended.setText("Total Times Attended: "+exam.getTotalAttended());
+            totalDistinctAttended.setText("Total Distinct Attended: "+exam.getUniqueStudents());
+            highestMarks.setText("Highest Marks Scored :"+exam.getHighestScore());
             // Enable the Attend button only if the exam is active
             if (exam.isIs_active()) {
-                buttonAttend.setEnabled(true);
-                buttonAttend.setText("ATTEND");
+                buttonAttend.setText("DEACTIVATE");
+                buttonAttend.setBackgroundResource(R.drawable.roundbutton_red);
+                buttonAttend.setOnClickListener(v -> {
+                    //call activation url
+                });
+            }
+            else
+            {
+                buttonAttend.setText("ACTIVATE");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
                 buttonAttend.setOnClickListener(v -> {
-
-                    Intent intent = new Intent(StudentAllExam.this, Student_Mcq_Exam.class);
-                    // Pass the exam ID to the next activity
-                    intent.putExtra("examId", exam.getId());
-                    intent.putExtra("examName",exam.getTitle());
-                    intent.putExtra("examDuration",exam.getDuration());
-                    intent.putExtra("examTotalQuestion",exam.getTotal_questions());
-                    intent.putExtra("examTotalMarks",exam.getTotal_marks());
-                    startActivity(intent);
+                    //call activation url
                 });
+
             }
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);
