@@ -98,19 +98,27 @@ public class AdminAllExam extends AppCompatActivity {
             if (exam.isIs_active()) {
                 buttonAttend.setText("DEACTIVATE");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_red);
-                buttonAttend.setOnClickListener(v -> {
-                    //call activation url
-                });
             }
             else
             {
                 buttonAttend.setText("ACTIVATE");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
-                buttonAttend.setOnClickListener(v -> {
-                    //call activation url
-                });
-
             }
+            buttonAttend.setOnClickListener(v -> {
+                if(buttonAttend.getText().equals("ACTIVATE"))
+                {
+                    activateExam(exam.getId());
+                    exam.setIs_active(true);
+                    buttonAttend.setText("DEACTIVATE");
+                    buttonAttend.setBackgroundResource(R.drawable.roundbutton_red);
+                }else {
+                    deActivateExam(exam.getId());
+                    exam.setIs_active(false);
+                    buttonAttend.setText("ACTIVATE");
+                    buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
+                }
+
+            });
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);
         }
@@ -118,6 +126,7 @@ public class AdminAllExam extends AppCompatActivity {
     }
     private void activateExam(String examId)
     {
+        progressIndicator.setVisibility(View.VISIBLE);
         RetrofitClient client=RetrofitClient.getInstance();
         ApiService apiService = client.getApi();
         Call<ApiResponse<String>> call=apiService.activateExam(examId);
@@ -127,19 +136,23 @@ public class AdminAllExam extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ApiResponse<String> response1 = response.body();
                     Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    progressIndicator.setVisibility(View.GONE);
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
             }
         });
     }
     private void deActivateExam(String examId)
     {
+        progressIndicator.setVisibility(View.VISIBLE);
         RetrofitClient client=RetrofitClient.getInstance();
         ApiService apiService = client.getApi();
         Call<ApiResponse<String>> call=apiService.deactivateExam(examId);
@@ -149,14 +162,17 @@ public class AdminAllExam extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ApiResponse<String> response1 = response.body();
                     Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    progressIndicator.setVisibility(View.GONE);
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
             }
         });
     }

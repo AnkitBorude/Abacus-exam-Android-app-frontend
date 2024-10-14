@@ -89,7 +89,7 @@
             android:padding="10dp"
             android:text="Activate "
             android:id="@+id/buttonAttend"
-            android:enabled="false"
+            android:textStyle="bold"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
