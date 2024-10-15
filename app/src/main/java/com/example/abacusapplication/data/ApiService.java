@@ -10,6 +10,7 @@ import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreateExam;
 import com.example.abacusapplication.models.Exam;
+import com.example.abacusapplication.models.ExamResult;
 import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
@@ -49,6 +50,10 @@ public interface ApiService {
     Call<ApiResponse<String>> activateExam(@Path("examId") String examId);
     @POST("exam/{examId}/deactivate")
     Call<ApiResponse<String>> deactivateExam(@Path("examId") String examId);
+
+    @GET("exam/{examId}/results")
+    Call<ApiResponse<List<ExamResult>>> getStudentResult(@Path("examId") String examId);
+
     class Echoreponse{
        public boolean echoed;
     }

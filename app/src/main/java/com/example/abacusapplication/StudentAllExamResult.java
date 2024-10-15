@@ -92,15 +92,10 @@ public class StudentAllExamResult extends AppCompatActivity {
                 buttonAttend.setText("VIEW RESULT");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_blue);
                 buttonAttend.setOnClickListener(v -> {
-
-//                    Intent intent = new Intent(StudentAllExamResult.this, Student_Mcq_Exam.class);
-//                    // Pass the exam ID to the next activity
-//                    intent.putExtra("examId", exam.getId());
-//                    intent.putExtra("examName",exam.getTitle());
-//                    intent.putExtra("examDuration",exam.getDuration());
-//                    intent.putExtra("examTotalQuestion",exam.getTotal_questions());
-//                    intent.putExtra("examTotalMarks",exam.getTotal_marks());
-//                    startActivity(intent);
+                    Intent intent = new Intent(StudentAllExamResult.this, StudentAllResult.class);
+                    // Pass the exam ID to the next activity
+                    intent.putExtra("examId", exam.getId());
+                    startActivity(intent);
                 });
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);
