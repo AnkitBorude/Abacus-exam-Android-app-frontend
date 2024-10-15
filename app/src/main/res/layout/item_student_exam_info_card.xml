@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Student Name -->
+        <TextView
+            android:id="@+id/textViewStudentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:text="Student Name" />
+
+
+        <!-- Student Email -->
+        <TextView
+            android:id="@+id/textViewStudentEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="16sp"/>
+
+        <!-- Student Level -->
+        <TextView
+            android:id="@+id/textViewStudentLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level: "
+            android:textSize="16sp"/>
+
+        <!-- Student Class -->
+        <TextView
+            android:id="@+id/textViewStudentClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class: "
+            android:textSize="16sp"/>
+
+        <!-- Student Phone Number -->
+        <TextView
+            android:id="@+id/textViewStudentPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: "
+            android:textSize="16sp"/>
+
+        <!-- Attend Button (kept unchanged as requested) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/roundbutton_green"
+            android:padding="10dp"
+            android:text="VIEW RESULTS"
+            android:id="@+id/buttonAttend"
+            android:enabled="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

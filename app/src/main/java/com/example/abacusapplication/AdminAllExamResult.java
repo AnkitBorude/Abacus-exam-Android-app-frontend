@@ -1,5 +1,6 @@
 package com.example.abacusapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,11 +53,13 @@ public class AdminAllExamResult extends AppCompatActivity {
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<Exam>>> call, Throwable t) {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
             }
         });
 
@@ -93,6 +96,10 @@ public class AdminAllExamResult extends AppCompatActivity {
                 buttonAttend.setText("VIEW STUDENTS");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_blue);
                 buttonAttend.setOnClickListener(v -> {
+                    Intent intent = new Intent(AdminAllExamResult.this, AdminAllStudentExam.class);
+                    // Pass the exam ID to the next activity
+                    intent.putExtra("examId", exam.getId());
+                    startActivity(intent);
             });
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);

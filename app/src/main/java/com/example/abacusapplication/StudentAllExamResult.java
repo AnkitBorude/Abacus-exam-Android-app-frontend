@@ -53,11 +53,13 @@ public class StudentAllExamResult extends AppCompatActivity {
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<Exam>>> call, Throwable t) {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
             }
         });
     }

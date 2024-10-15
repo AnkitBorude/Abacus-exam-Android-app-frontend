@@ -18,6 +18,7 @@ import com.example.abacusapplication.models.LoginData;
 import com.example.abacusapplication.models.Question;
 import com.example.abacusapplication.models.Result;
 import com.example.abacusapplication.models.Student;
+import com.example.abacusapplication.models.StudentresultInfo;
 
 import java.util.List;
 
@@ -54,6 +55,8 @@ public interface ApiService {
     @GET("exam/{examId}/results")
     Call<ApiResponse<List<ExamResult>>> getStudentResult(@Path("examId") String examId);
 
+    @GET("exam/{examId}/students")
+    Call<ApiResponse<List<StudentresultInfo>>> getStudentsofExam(@Path("examId") String examId);
     class Echoreponse{
        public boolean echoed;
     }
