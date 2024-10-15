@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Exam Title -->
+        <TextView
+            android:id="@+id/textViewExamName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:text="Exam Name" />
+
+        <!-- Score -->
+        <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: 0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Percentage: 0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Total Correct -->
+        <TextView
+            android:id="@+id/textViewTotalCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Correct: 0"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Time Taken -->
+        <TextView
+            android:id="@+id/textViewTimeTaken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Taken: 0 minutes"
+            android:textSize="16sp"/>
+
+        <!-- Date Completed -->
+        <TextView
+            android:id="@+id/textViewDateCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Completed: N/A"
+            android:textSize="16sp"/>
+
+        <!-- Exam Duration -->
+        <TextView
+            android:id="@+id/textViewExamDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exam Duration: 0 minutes"
+            android:textSize="16sp"/>
+
+        <!-- Exam Level -->
+        <TextView
+            android:id="@+id/textViewExamLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exam Level: N/A"
+            android:textSize="16sp"/>
+
+        <!-- Total Questions -->
+        <TextView
+            android:id="@+id/textViewTotalQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Questions: 0"
+            android:textSize="16sp"/>
+
+        <!-- Exam Marks -->
+        <TextView
+            android:id="@+id/textViewExamMarks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Marks: 0"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
