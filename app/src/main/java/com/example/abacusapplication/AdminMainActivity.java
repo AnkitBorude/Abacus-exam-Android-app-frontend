@@ -17,6 +17,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView profileCard=findViewById(R.id.profileCard);
         CardView createExamcard=findViewById(R.id.create_exam);
         CardView viewExam=findViewById(R.id.adminViewexam);
+        CardView viewResult=findViewById(R.id.viewResult);
         profileCard.setOnClickListener(view->{
             Intent intent=new Intent(getBaseContext(),AdminProfile.class);
             startActivity(intent);
@@ -29,6 +30,11 @@ public class AdminMainActivity extends AppCompatActivity {
 
         viewExam.setOnClickListener(view->{
             Intent intent=new Intent(getBaseContext(), AdminAllExam.class);
+            startActivity(intent);
+        });
+
+        viewResult.setOnClickListener(view->{
+            Intent intent=new Intent(getBaseContext(), AdminAllExamResult.class);
             startActivity(intent);
         });
     }
