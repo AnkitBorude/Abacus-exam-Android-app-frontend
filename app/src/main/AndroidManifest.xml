@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AbacusApplication"
         tools:targetApi="31">
         <activity
+            android:name=".AdminAllResult"
+            android:exported="false" />
+        <activity
             android:name=".AdminAllStudentExam"
             android:exported="false" />
         <activity
@@ -23,9 +26,6 @@
             android:exported="false" />
         <activity
             android:name=".AdminAllExamResult"
-            android:exported="false" />
-        <activity
-            android:name=".Admin"
             android:exported="false" />
         <activity
             android:name=".StudentAllExamResult"

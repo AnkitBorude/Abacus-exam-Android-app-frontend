@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardCornerRadius="20dp"
     android:elevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@drawable/gradient_2">
 
         <!-- Exam Title -->
         <TextView
@@ -17,9 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:layout_gravity="center"
-            android:text="Exam Name" />
+            android:text="Exam Name"
+            android:textColor="@color/white"/>
 
         <!-- Score -->
         <TextView
@@ -27,18 +32,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Score: 0"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textViewPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Percentage: 0"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textViewAttempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attempt : 1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"/>
 
         <!-- Total Correct -->
         <TextView
@@ -46,8 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Correct: 0"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"/>
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"/>
 
         <!-- Time Taken -->
         <TextView
@@ -55,7 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time Taken: 0 minutes"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <!-- Date Completed -->
         <TextView
@@ -63,7 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date Completed: N/A"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <!-- Exam Duration -->
         <TextView
@@ -71,7 +91,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exam Duration: 0 minutes"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <!-- Exam Level -->
         <TextView
@@ -79,7 +100,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exam Level: N/A"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <!-- Total Questions -->
         <TextView
@@ -87,7 +109,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Questions: 0"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <!-- Exam Marks -->
         <TextView
@@ -95,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Marks: 0"
-            android:textSize="16sp"/>
-
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

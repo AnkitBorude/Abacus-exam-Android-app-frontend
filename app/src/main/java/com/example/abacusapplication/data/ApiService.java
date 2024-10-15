@@ -55,6 +55,8 @@ public interface ApiService {
     @GET("exam/{examId}/results")
     Call<ApiResponse<List<ExamResult>>> getStudentResult(@Path("examId") String examId);
 
+    @GET("exam/{examId}/students/{studentId}/results")
+    Call<ApiResponse<List<ExamResult>>> getStudentResult(@Path("examId") String examId,@Path("studentId") String studentId);
     @GET("exam/{examId}/students")
     Call<ApiResponse<List<StudentresultInfo>>> getStudentsofExam(@Path("examId") String examId);
     class Echoreponse{

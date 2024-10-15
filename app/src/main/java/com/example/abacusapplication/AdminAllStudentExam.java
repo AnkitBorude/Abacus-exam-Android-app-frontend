@@ -88,6 +88,10 @@ public class AdminAllStudentExam extends AppCompatActivity {
             textViewStudentPhone.setText("Phone: " + student.getStudentPhoneNo());
 
             buttonAttend.setOnClickListener(v -> {
+                Intent intent=new Intent(AdminAllStudentExam.this,AdminAllResult.class);
+                intent.putExtra("examId",this.examId);
+                intent.putExtra("studentId",student.getStudentId());
+                startActivity(intent);
                 // Add any click listener logic here if needed
             });
 
