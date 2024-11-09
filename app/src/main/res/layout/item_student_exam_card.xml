@@ -15,6 +15,17 @@
         android:padding="16dp"
         android:background="@drawable/gradient_2">
 
+        <TextView
+            android:id="@+id/badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundbutton_green"
+            android:gravity="center"
+            android:text="Single"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:padding="4dp"
+           />
         <!-- Exam Title -->
         <TextView
             android:id="@+id/textViewTitle"
@@ -75,6 +86,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Created By: Ankit Borude"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/textsingleAttempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single Attempt Only : YES"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/textAttempted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attempted : YES"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/textattemptDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Attempted :21/12/2024"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/texttotalAttempts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Attempts : 0"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"/>

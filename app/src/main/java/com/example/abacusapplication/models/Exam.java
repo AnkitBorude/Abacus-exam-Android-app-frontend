@@ -25,6 +25,36 @@ public class Exam{
     @SerializedName("unique_students")
     private int uniqueStudents;
 
+    public HasAttempted getHasAttempted() {
+        return hasAttempted;
+    }
+
+    public void setHasAttempted(HasAttempted hasAttempted) {
+        this.hasAttempted = hasAttempted;
+    }
+
+    @SerializedName("hasAttempted")
+    private HasAttempted hasAttempted;
+
+
+    public boolean isSingleAttempt() {
+        return isSingleAttempt;
+    }
+
+    public void setSingleAttempt(boolean singleAttempt) {
+        isSingleAttempt = singleAttempt;
+    }
+
+    @SerializedName("isSingleAttempt")
+    private boolean isSingleAttempt;
+
+    public int getTotalAttempted() {
+        return totalAttempted;
+    }
+
+    @SerializedName("totalAttempted")
+    private int totalAttempted;
+
     // Getter and Setter methods
 
     public Exam(String title, int duration, String level, int total_questions, int total_marks, int total_marks_per_question, boolean is_active, CreatedBy created_by, String createdAt, String id) {
@@ -38,6 +68,33 @@ public class Exam{
         this.created_by = created_by;
         this.createdAt = createdAt;
         this.id = id;
+        this.isSingleAttempt=false;//setting default to false might change letter
+    }
+
+    public static class HasAttempted {
+        public boolean isAttempted() {
+            return attempted;
+        }
+
+        public void setAttempted(boolean attempted) {
+            this.attempted = attempted;
+        }
+
+        @SerializedName("attempted")
+        private boolean attempted;
+
+        public String getAttemptDate() {
+            return attemptDate;
+        }
+
+        public void setAttemptDate(String attemptDate) {
+            this.attemptDate = attemptDate;
+        }
+
+        @SerializedName("attempt_date")
+        private String attemptDate;
+
+        // Getters and Setters
     }
 
     public String getTitle() {

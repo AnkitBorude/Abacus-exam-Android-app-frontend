@@ -69,6 +69,7 @@ public class StudentAllResult extends AppCompatActivity {
     }
     private void createExamUI(List<ExamResult> examResults) {
         LayoutInflater inflater = LayoutInflater.from(this);
+        int i=1;
         for (ExamResult result : examResults) {
             View examResultCard = inflater.inflate(R.layout.item_result_card, linearLayoutExamResults, false);
 
@@ -84,7 +85,7 @@ public class StudentAllResult extends AppCompatActivity {
             TextView textViewExamMarks = examResultCard.findViewById(R.id.textViewExamMarks);
 
             TextView textViewPercentage = examResultCard.findViewById(R.id.textViewPercentage);
-
+            TextView textViewAttempt =examResultCard.findViewById(R.id.textViewAttempt);
             int percentage=0;
             textViewExamName.setText(result.getExamName());
             textViewScore.setText("Score: " + result.getScore());
@@ -96,8 +97,10 @@ public class StudentAllResult extends AppCompatActivity {
             textViewExamLevel.setText("Exam Level: " + result.getExamLevel());
             textViewTotalQuestions.setText("Total Questions: " + result.getExamTotalQuestion());
             textViewExamMarks.setText("Total Marks: " + result.getExamMarks());
+            textViewAttempt.setText("Attempt : "+i);
             // Add the card to the LinearLayout
             linearLayoutExamResults.addView(examResultCard);
+            i++;
         }
         progressIndicator.setVisibility(View.GONE);
     }

@@ -18,6 +18,8 @@ import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,6 +63,7 @@ public class StudentAllExam extends AppCompatActivity {
         for (Exam exam : exams) {
             View examCard = inflater.inflate(R.layout.item_student_exam_card, linearLayoutExams, false);
 
+            boolean isSingleExamAttempted=false;
             // Set exam details
             TextView textViewTitle = examCard.findViewById(R.id.textViewTitle);
             TextView textViewDuration = examCard.findViewById(R.id.textViewDuration);
@@ -70,6 +73,11 @@ public class StudentAllExam extends AppCompatActivity {
             TextView marks=examCard.findViewById(R.id.textViewMarks);
             TextView createdBy=examCard.findViewById(R.id.textcreatedBy);
 
+            TextView singleAttempt=examCard.findViewById(R.id.textsingleAttempt);
+            TextView totalAttempt=examCard.findViewById(R.id.texttotalAttempts);
+            TextView isAttempted=examCard.findViewById(R.id.textAttempted);
+            TextView attemptDate=examCard.findViewById(R.id.textattemptDate);
+            TextView badge=examCard.findViewById(R.id.badge);
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
 
             textViewTitle.setText(exam.getTitle());
@@ -79,10 +87,38 @@ public class StudentAllExam extends AppCompatActivity {
             marksperquestion.setText("Marks Per Question: " +exam.getTotal_marks_per_question());
             marks.setText("Total Marks: "+exam.getTotal_marks());
             createdBy.setText("Created by: "+exam.getCreated_by().getFullname());
-            // Enable the Attend button only if the exam is active
+            totalAttempt.setText("Total Times Attempted : "+exam.getTotalAttempted());
+            if(exam.isSingleAttempt()) {
+                singleAttempt.setText("Attempt Type : Single");
+                badge.setText(" Assessment");
+                badge.setBackgroundResource(R.drawable.badge_background);
+                isSingleExamAttempted=exam.getHasAttempted().isAttempted();
+                isAttempted.setText("Attempted : "+(isSingleExamAttempted ? "YES" : "NO"));
+                if(!exam.getHasAttempted().isAttempted())
+                {
+                    attemptDate.setVisibility(View.GONE);
+                }
+                attemptDate.setText("Date of Attempted : "+exam.getHasAttempted().getAttemptDate());
+            }
+            else
+            {
+                singleAttempt.setText("Attempt Type : Multiple");
+                badge.setText(" Practice");
+                isAttempted.setVisibility(View.GONE);
+                attemptDate.setVisibility(View.GONE);
+            }
+            // Enable the Attend button only if the exam is active and not attempted in case the exam is single attempt only
             if (exam.isIs_active()) {
-                buttonAttend.setEnabled(true);
-                buttonAttend.setText("ATTEND");
+                if(exam.isSingleAttempt() && isSingleExamAttempted)
+                {
+                    buttonAttend.setEnabled(false);
+                    buttonAttend.setText("ATTEMPTED");
+                }
+                else
+                {
+                    buttonAttend.setEnabled(true);
+                    buttonAttend.setText("ATTEND");
+                }
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
                 buttonAttend.setOnClickListener(v -> {
 
@@ -94,6 +130,7 @@ public class StudentAllExam extends AppCompatActivity {
                     intent.putExtra("examTotalQuestion",exam.getTotal_questions());
                     intent.putExtra("examTotalMarks",exam.getTotal_marks());
                     startActivity(intent);
+                    
                 });
             }
             // Add the card to the LinearLayout
