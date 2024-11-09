@@ -1,5 +1,6 @@
 package com.example.abacusapplication.data;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -59,6 +60,10 @@ public interface ApiService {
     Call<ApiResponse<List<ExamResult>>> getStudentResult(@Path("examId") String examId,@Path("studentId") String studentId);
     @GET("exam/{examId}/students")
     Call<ApiResponse<List<StudentresultInfo>>> getStudentsofExam(@Path("examId") String examId);
+
+    @GET("result/{resultId}/pdf")
+    Call<ResponseBody> getStudentresultPdf(@Path("resultId") String resultId);
+
     class Echoreponse{
        public boolean echoed;
     }
