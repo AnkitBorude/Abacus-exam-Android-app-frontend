@@ -32,13 +32,14 @@ public class StudentAllExamResult extends AppCompatActivity {
     private LinearLayout linearLayoutExams;
     private List<Exam> examList;
     private CircularProgressIndicator progressIndicator;
-
+    private String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_all_exam_result);
         linearLayoutExams = findViewById(R.id.linearLayoutExams);
-
+        Intent intent=getIntent();
+        this.type=intent.getStringExtra("type");
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
         RetrofitClient client=RetrofitClient.getInstance();
@@ -71,6 +72,7 @@ public class StudentAllExamResult extends AppCompatActivity {
             View examCard = inflater.inflate(R.layout.item_student_exam_card, linearLayoutExams, false);
 
             // Set exam details
+            boolean isSingleExamAttempted=false;
             TextView textViewTitle = examCard.findViewById(R.id.textViewTitle);
             TextView textViewDuration = examCard.findViewById(R.id.textViewDuration);
             TextView textViewLevel = examCard.findViewById(R.id.textViewLevel);
@@ -78,6 +80,12 @@ public class StudentAllExamResult extends AppCompatActivity {
             TextView marksperquestion=examCard.findViewById(R.id.totalmarksperquestion);
             TextView marks=examCard.findViewById(R.id.textViewMarks);
             TextView createdBy=examCard.findViewById(R.id.textcreatedBy);
+
+            TextView singleAttempt=examCard.findViewById(R.id.textsingleAttempt);
+            TextView totalAttempt=examCard.findViewById(R.id.texttotalAttempts);
+            TextView isAttempted=examCard.findViewById(R.id.textAttempted);
+            TextView attemptDate=examCard.findViewById(R.id.textattemptDate);
+            TextView badge=examCard.findViewById(R.id.badge);
 
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
 
@@ -88,14 +96,43 @@ public class StudentAllExamResult extends AppCompatActivity {
             marksperquestion.setText("Marks Per Question: " +exam.getTotal_marks_per_question());
             marks.setText("Total Marks: "+exam.getTotal_marks());
             createdBy.setText("Created by: "+exam.getCreated_by().getFullname());
+            totalAttempt.setText("Total Times Attempted : "+exam.getTotalAttempted());
+            if(exam.isSingleAttempt()) {
+                singleAttempt.setText("Attempt Type : Single");
+                badge.setText(" Assessment");
+                badge.setBackgroundResource(R.drawable.badge_background);
+                isSingleExamAttempted=exam.getHasAttempted().isAttempted();
+                isAttempted.setText("Attempted : "+(isSingleExamAttempted ? "YES" : "NO"));
+                if(!exam.getHasAttempted().isAttempted())
+                {
+                    attemptDate.setVisibility(View.GONE);
+                }
+                attemptDate.setText("Date of Attempted : "+exam.getHasAttempted().getAttemptDate());
+            }
+            else
+            {
+                singleAttempt.setText("Attempt Type : Multiple");
+                badge.setText(" Practice");
+                isAttempted.setVisibility(View.GONE);
+                attemptDate.setVisibility(View.GONE);
+            }
             // Enable the Attend button only if the exam is active
 
                 buttonAttend.setEnabled(true);
-                buttonAttend.setText("VIEW RESULT");
+                buttonAttend.setText(this.type+" RESULTS");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_blue);
+
                 buttonAttend.setOnClickListener(v -> {
-                    Intent intent = new Intent(StudentAllExamResult.this, StudentAllResult.class);
-                    // Pass the exam ID to the next activity
+
+                    Intent intent = null;
+                    if(this.type.equals("VIEW"))
+                    {
+                        intent= new Intent(StudentAllExamResult.this, StudentAllResult.class);
+                    }
+                    else
+                    {
+                        intent=new Intent(StudentAllExamResult.this,StudentDownloadResult.class);
+                    }
                     intent.putExtra("examId", exam.getId());
                     startActivity(intent);
                 });
