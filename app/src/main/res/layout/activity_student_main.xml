@@ -34,7 +34,7 @@
             android:layout_marginTop="16dp"
             android:text="Dashboard"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/amazonImage"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/amazonImage"
-            android:layout_width="144dp"
-            android:layout_height="114dp"
+            android:layout_width="107dp"
+            android:layout_height="82dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/student"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +75,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/profileName"
-                        android:text="Profile"
+                        android:text="My Profile"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
                         android:layout_marginTop="10dp"
+                        android:textStyle="bold"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/clothingImage"/>
                     <ImageView
@@ -107,15 +108,16 @@
                         android:id="@+id/elecName"
                         android:text="Attend Exam"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/lavender"
                         android:layout_marginTop="10dp"
+                        android:textStyle="bold"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/elecImage"/>
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/elecImage"
-                        android:src="@drawable/baseline_add_circle_outline_24"
+                        android:src="@drawable/twotone_create_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -149,6 +151,7 @@
                         android:id="@+id/homeName"
                         android:text="View Results"
                         android:textSize="20sp"
+                        android:textStyle="bold"
                         android:textColor="@color/lavender"
 
                         android:layout_marginTop="10dp"
@@ -158,7 +161,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/homeImage"
-                        android:src="@drawable/round_cell_tower_24"
+                        android:src="@drawable/correct"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -177,17 +180,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/beautyName"
-                        android:text="Beauty"
+                        android:text="Download"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="2dp"
                         android:layout_centerHorizontal="true"
+                        android:textStyle="bold"
                         android:layout_below="@+id/beautyImage"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/resultText"
+                        android:text="Results"
+                        android:textSize="18sp"
+                        android:textColor="@color/lavender"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/beautyName"/>
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/beautyImage"
-                        android:src="@drawable/student"
+                        android:src="@drawable/baseline_download_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -218,9 +232,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/pharmName"
-                        android:text="Pharmacy"
+                        android:text="Update Profile"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/pharmImage"/>
@@ -228,7 +243,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/pharmImage"
-                        android:src="@drawable/school"
+                        android:src="@drawable/baseline_edit_square_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -247,8 +262,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/grocName"
-                        android:text="Groceries"
+                        android:text="Help"
                         android:textSize="20sp"
+                        android:textStyle="bold"
                         android:textColor="@color/lavender"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
@@ -257,11 +273,36 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/grocImage"
-                        android:src="@drawable/teacher"
+                        android:src="@drawable/baseline_app_settings_alt_24"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutbtn"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/row3"
+            >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/roundbutton_red"
+            android:padding="10dp"
+            android:text="Log Out"
+            android:textStyle="bold"
+            android:id="@+id/loginbutton"
+            android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
