@@ -120,5 +120,18 @@
             android:text="Total Marks: 0"
             android:textSize="18sp"
             android:textColor="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/roundbutton_blue"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:text="Download PDF"
+            android:drawableRight="@drawable/baseline_download_24"
+            android:id="@+id/downloadbtn"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
