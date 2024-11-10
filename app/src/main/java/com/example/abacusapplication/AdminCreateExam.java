@@ -56,6 +56,10 @@ public class AdminCreateExam extends AppCompatActivity {
         RadioButton rbYes = findViewById(R.id.rb_yes);
         RadioButton rbNo = findViewById(R.id.rb_no);
 
+        RadioGroup rgExamType=findViewById(R.id.rg_exam_type);
+        RadioButton rbExams=findViewById(R.id.rb_assessment);
+        RadioButton rbPractice=findViewById(R.id.rb_practice);
+
         Button btnCreateExam = findViewById(R.id.create_exam);
         Button btnGoBack = findViewById(R.id.go_back_button);
 
@@ -121,6 +125,14 @@ public class AdminCreateExam extends AppCompatActivity {
                 isActive = false; // No is selected, so isActive is false
             }
 
+            if(rgExamType.getCheckedRadioButtonId()==R.id.rb_assessment)
+            {
+                createExam.setSingleAttempt(true);
+            }
+            else
+            {
+                createExam.setSingleAttempt(false);
+            }
             // Set exam as active
             createExam.setActive(isActive);
 

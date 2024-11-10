@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="?attr/colorSurface"
+    android:background="@drawable/gradient_1"
    >
     <!-- Main Title -->
     <TextView
@@ -164,7 +164,37 @@
                             android:text="No"
                             android:checked="true"/>
                     </RadioGroup>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exam Type"
+                        android:textSize="14sp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
+                    <RadioGroup
+                        android:id="@+id/rg_exam_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <RadioButton
+                            android:id="@+id/rb_practice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Practice"
+                            android:checked="true"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/rb_assessment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Assessment"
+                            />
+                    </RadioGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

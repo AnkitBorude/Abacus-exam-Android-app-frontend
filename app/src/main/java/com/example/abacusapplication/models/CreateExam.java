@@ -22,6 +22,13 @@ public class CreateExam {
     @SerializedName("is_active")
     private boolean isActive;
 
+
+    public void setSingleAttempt(boolean singleAttempt) {
+        isSingleAttempt = singleAttempt;
+    }
+
+    @SerializedName("isSingleAttempt")
+    private boolean isSingleAttempt=false;
     @SerializedName("total_marks_per_question")
     private int totalMarksPerQuestion;
 
