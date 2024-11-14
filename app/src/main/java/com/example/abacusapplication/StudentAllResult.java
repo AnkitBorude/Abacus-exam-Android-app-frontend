@@ -86,7 +86,7 @@ public class StudentAllResult extends AppCompatActivity {
 
             TextView textViewPercentage = examResultCard.findViewById(R.id.textViewPercentage);
             TextView textViewAttempt =examResultCard.findViewById(R.id.textViewAttempt);
-            int percentage=0;
+            int percentage = (int) ((result.getScore() / (double) result.getExamMarks()) * 100);
             textViewExamName.setText(result.getExamName());
             textViewScore.setText("Score: " + result.getScore());
             textViewPercentage.setText("Percentage: "+percentage+" %");

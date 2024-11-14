@@ -80,7 +80,7 @@ public class AdminAllExamResult extends AppCompatActivity {
             TextView totalAttended=examCard.findViewById(R.id.texttotaltimesattended);
             TextView totalDistinctAttended=examCard.findViewById(R.id.texttotaldistinctattended);
             TextView highestMarks=examCard.findViewById(R.id.texthighestscore);
-
+            TextView badge=examCard.findViewById(R.id.badge);
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
 
             textViewTitle.setText(exam.getTitle());
@@ -92,6 +92,12 @@ public class AdminAllExamResult extends AppCompatActivity {
             totalAttended.setText("Total Times Attended: "+exam.getTotalAttended());
             totalDistinctAttended.setText("Total Distinct Attended: "+exam.getUniqueStudents());
             highestMarks.setText("Highest Marks Scored :"+exam.getHighestScore());
+            if(exam.isSingleAttempt()) {
+                badge.setText(" Assessment");
+                badge.setBackgroundResource(R.drawable.badge_background);
+            }else {
+                badge.setText(" Practice");
+            }
             // Enable the Attend button only if the exam is active
                 buttonAttend.setText("VIEW STUDENTS");
                 buttonAttend.setBackgroundResource(R.drawable.roundbutton_blue);

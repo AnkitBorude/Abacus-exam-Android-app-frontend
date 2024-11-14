@@ -302,7 +302,7 @@
             android:padding="10dp"
             android:text="Log Out"
             android:textStyle="bold"
-            android:id="@+id/loginbutton"
+            android:id="@+id/logoutbutton"
             android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package com.example.abacusapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -18,6 +20,8 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView createExamcard=findViewById(R.id.create_exam);
         CardView viewExam=findViewById(R.id.adminViewexam);
         CardView viewResult=findViewById(R.id.viewResult);
+
+        Button logoutbtn=findViewById(R.id.logoutbutton);
         profileCard.setOnClickListener(view->{
             Intent intent=new Intent(getBaseContext(),AdminProfile.class);
             startActivity(intent);
@@ -36,6 +40,10 @@ public class AdminMainActivity extends AppCompatActivity {
         viewResult.setOnClickListener(view->{
             Intent intent=new Intent(getBaseContext(), AdminAllExamResult.class);
             startActivity(intent);
+        });
+
+        logoutbtn.setOnClickListener(view->{
+            finish();
         });
     }
 }

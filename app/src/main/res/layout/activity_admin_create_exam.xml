@@ -371,7 +371,6 @@
             android:text="Go Back"
             android:id="@+id/go_back_button"
             android:textColor="@android:color/white" />
-
         </LinearLayout>
 </LinearLayout>
 </ScrollView>
