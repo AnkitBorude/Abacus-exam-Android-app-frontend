@@ -6,6 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiResponse;
@@ -64,6 +65,8 @@ public interface ApiService {
     @GET("result/{resultId}/pdf")
     Call<ResponseBody> getStudentresultPdf(@Path("resultId") String resultId);
 
+    @GET("student")
+    Call<ApiResponse<List<StudentresultInfo>>> getStudents(@Query("name") String queryName, @Query("class") String studentClass,@Query("level") String studentLevel);
     class Echoreponse{
        public boolean echoed;
     }

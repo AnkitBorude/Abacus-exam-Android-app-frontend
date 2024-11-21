@@ -9,19 +9,19 @@ public class StudentresultInfo {
     @SerializedName("student_id")
     private String studentId;
 
-    @SerializedName("student_name")
+    @SerializedName("fullname")
     private String studentName;
 
-    @SerializedName("student_email")
+    @SerializedName("email")
     private String studentEmail;
 
-    @SerializedName("student_level")
+    @SerializedName("level")
     private String studentLevel;
 
-    @SerializedName("student_class")
+    @SerializedName("sclass")
     private String studentClass;
 
-    @SerializedName("student_phoneno")
+    @SerializedName("phone_no")
     private String studentPhoneNo;
 
     // Getters and setters

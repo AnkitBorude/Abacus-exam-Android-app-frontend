@@ -57,6 +57,7 @@ public class AdminAllStudentExam extends AppCompatActivity {
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    linearLayoutStudents.removeAllViews();
                     progressIndicator.setVisibility(View.GONE);
                 }
             }

@@ -20,7 +20,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView createExamcard=findViewById(R.id.create_exam);
         CardView viewExam=findViewById(R.id.adminViewexam);
         CardView viewResult=findViewById(R.id.viewResult);
-
+        CardView viewStudents=findViewById(R.id.adminViewStudents);
         Button logoutbtn=findViewById(R.id.logoutbutton);
         profileCard.setOnClickListener(view->{
             Intent intent=new Intent(getBaseContext(),AdminProfile.class);
@@ -42,6 +42,10 @@ public class AdminMainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        viewStudents.setOnClickListener(view->{
+            Intent intent=new Intent(getBaseContext(), AdminViewAllStudents.class);
+            startActivity(intent);
+        });
         logoutbtn.setOnClickListener(view->{
             finish();
         });
