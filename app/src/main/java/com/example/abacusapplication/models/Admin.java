@@ -12,14 +12,23 @@ public class Admin {
         @SerializedName("email")
         private String email;
 
+        @SerializedName("password")
+        private String password;
+
         // Constructor
         public Admin(String fullName, String username, String email) {
             this.fullName = fullName;
             this.username = username;
             this.email = email;
         }
+        public Admin(String fullName, String username, String email,String password) {
+        this.fullName = fullName;
+        this.username = username;
+        this.email = email;
+        this.password=password;
+        }
 
-        // Getters and Setters
+    // Getters and Setters
         public String getFullName() {
             return fullName;
         }
@@ -43,4 +52,7 @@ public class Admin {
         public void setEmail(String email) {
             this.email = email;
         }
+
+        public void setPassword(String password){this.password=password;}
+
 }

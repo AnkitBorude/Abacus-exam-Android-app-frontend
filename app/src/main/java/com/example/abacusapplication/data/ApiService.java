@@ -35,6 +35,9 @@ public interface ApiService {
     @POST("student/register")
     Call<ApiResponse<String>>studentRegister(@Body Student student);
 
+    @POST("admin/register")
+    Call<ApiResponse<String>>adminRegister(@Body Admin admin);
+
     @GET("admin/me")
     Call<ApiResponse<Admin>> getAdmin();
 
