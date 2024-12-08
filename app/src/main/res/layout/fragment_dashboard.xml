@@ -44,6 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/adminregisterbtn"
                 android:text="Sign up!"
                 android:textColor="#1dbf8d"
                 android:textSize="16sp"

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.abacusapplication.AdminMainActivity;
+import com.example.abacusapplication.AdminRegisterActivity;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.data.ApiService;
 import com.example.abacusapplication.data.RetrofitClient;
@@ -23,6 +24,7 @@ import com.example.abacusapplication.databinding.FragmentDashboardBinding;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
+import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;
@@ -31,7 +33,7 @@ import retrofit2.Response;
 
 public class DashboardFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+
     private RetrofitClient client;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class DashboardFragment extends Fragment {
         Button loginbutton =view.findViewById(R.id.loginbutton);
         EditText username=view.findViewById(R.id.adminusername);
         EditText password=view.findViewById(R.id.adminpassword);
+        TextView signupbtn=view.findViewById(R.id.adminregisterbtn);
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
         username.setText("ankit123");
         password.setText("ankit@123");
@@ -82,8 +85,14 @@ public class DashboardFragment extends Fragment {
                 }
             });
         });
+
+        signupbtn.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), AdminRegisterActivity.class);
+            startActivity(intent);
+        });
         return view;
     }
+
 
     @Override
     public void onDestroyView() {

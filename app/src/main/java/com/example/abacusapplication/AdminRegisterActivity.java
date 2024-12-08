@@ -37,6 +37,9 @@ public class AdminRegisterActivity extends AppCompatActivity {
         Button registerbtn=findViewById(R.id.registerbutton);
         Button backtologinbtn=findViewById(R.id.backToLoginButton);
 
+
+        progressIndicator = findViewById(R.id.progress_circular);
+
         registerbtn.setOnClickListener(view->{
             if(!register()) {
                 Toast.makeText(AdminRegisterActivity.this,"Please fill proper data",Toast.LENGTH_SHORT).show();
