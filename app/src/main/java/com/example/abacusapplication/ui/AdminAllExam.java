@@ -1,5 +1,6 @@
 package com.example.abacusapplication.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.abacusapplication.AdminViewAllStudents;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.StudentAllExam;
 import com.example.abacusapplication.Student_Mcq_Exam;
@@ -40,10 +43,14 @@ public class AdminAllExam extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_all_exam);
-
         linearLayoutExams = findViewById(R.id.linearLayoutExams);
-
         progressIndicator = findViewById(R.id.progress_circular);
+        fetchExam();
+
+    }
+
+    private void fetchExam()
+    {
         progressIndicator.setVisibility(View.VISIBLE);
         RetrofitClient client=RetrofitClient.getInstance();
         ApiService apiService = client.getApi();
@@ -57,17 +64,19 @@ public class AdminAllExam extends AppCompatActivity {
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<Exam>>> call, Throwable t) {
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
             }
         });
-
     }
     private void createExamUI(List<Exam> exams)
     {
+        linearLayoutExams.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
         for (Exam exam : exams) {
             View examCard = inflater.inflate(R.layout.item_admin_exam_card, linearLayoutExams, false);
@@ -84,6 +93,7 @@ public class AdminAllExam extends AppCompatActivity {
             TextView highestMarks=examCard.findViewById(R.id.texthighestscore);
             TextView badge=examCard.findViewById(R.id.badge);
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
+            Button buttonMoreoptions=examCard.findViewById(R.id.buttonMoreOptions);
 
             textViewTitle.setText(exam.getTitle());
             textViewDuration.setText("Duration: " + exam.getDuration() + " mins");
@@ -124,6 +134,10 @@ public class AdminAllExam extends AppCompatActivity {
                     buttonAttend.setBackgroundResource(R.drawable.roundbutton_green);
                 }
 
+            });
+
+            buttonMoreoptions.setOnClickListener(view->{
+                showOptionsDialog(linearLayoutExams,examCard, exam.getId());
             });
             // Add the card to the LinearLayout
             linearLayoutExams.addView(examCard);
@@ -168,6 +182,93 @@ public class AdminAllExam extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ApiResponse<String> response1 = response.body();
                     Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    progressIndicator.setVisibility(View.GONE);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void showOptionsDialog(LinearLayout parentLayout,View card,String examId)
+    {
+        String[] options = {"Delete Exam", "Delete All Results"};
+
+        // Build the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(AdminAllExam.this);
+        builder.setTitle("Exam Options");
+
+        // Set the options in the dialog
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: // Delete
+                        Toast.makeText(AdminAllExam.this, "Deleting Exam...", Toast.LENGTH_SHORT).show();
+                        deleteExam(examId,parentLayout,card);
+                        break;
+                    case 1: // DeleteFull
+                        Toast.makeText(AdminAllExam.this, "Deleting All Results...", Toast.LENGTH_SHORT).show();
+                        deleteResults(examId);
+                        break;
+                    case 2: // View More Info
+                        Toast.makeText(AdminAllExam.this, "View More Info for Card", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+        // Show the dialog
+        builder.show();
+    }
+
+    private void deleteExam(String examId,LinearLayout parentLayout,View card)
+    {
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deleteExam(examId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    parentLayout.removeView(card);
+                    progressIndicator.setVisibility(View.GONE);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void deleteResults(String examId)
+    {
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deleteResults(examId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    fetchExam();
                     progressIndicator.setVisibility(View.GONE);
                 } else {
                     ApiError error = client.convertError(response.errorBody());

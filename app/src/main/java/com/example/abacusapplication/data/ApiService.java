@@ -83,6 +83,9 @@ public interface ApiService {
 
     @DELETE ("exam/{examId}/results")
     Call<ApiResponse<String>> deleteResults(@Path("examId") String examId);
+
+    @DELETE("result/{resultId}")
+    Call<ApiResponse<String>> deleteResult(@Path("resultId") String resultId);
     class Echoreponse{
        public boolean echoed;
     }
