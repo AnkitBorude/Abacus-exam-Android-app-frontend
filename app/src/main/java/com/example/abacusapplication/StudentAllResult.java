@@ -99,9 +99,44 @@ public class StudentAllResult extends AppCompatActivity {
             textViewExamMarks.setText("Total Marks: " + result.getExamMarks());
             textViewAttempt.setText("Attempt : "+i);
             // Add the card to the LinearLayout
+
+            Button deleteResultbtn=examResultCard.findViewById(R.id.buttonDelete);
+            deleteResultbtn.setOnClickListener(view->{
+                Toast.makeText(getBaseContext(),"Deleting Result...",Toast.LENGTH_SHORT).show();
+                deleteResult(result.getId(),linearLayoutExamResults,examResultCard);
+            });
             linearLayoutExamResults.addView(examResultCard);
             i++;
         }
         progressIndicator.setVisibility(View.GONE);
     }
+
+    private void deleteResult(String resultId,LinearLayout parentLayout,View card)
+    {
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deleteResult(resultId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    parentLayout.removeView(card);
+                    progressIndicator.setVisibility(View.GONE);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
+    }
+
 }

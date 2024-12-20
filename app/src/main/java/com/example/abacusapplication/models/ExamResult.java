@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ExamResult {
 
-        @SerializedName("_id")
+        @SerializedName("result_id")
         private String id;
 
         @SerializedName("score")

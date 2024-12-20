@@ -133,5 +133,18 @@
             android:id="@+id/downloadbtn"
             android:visibility="gone"
             android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/roundbutton_red"
+            android:padding="10dp"
+            android:drawableEnd="@drawable/baseline_delete_forever_24"
+            android:text="DELETE RESULT"
+            android:id="@+id/buttonDelete"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
