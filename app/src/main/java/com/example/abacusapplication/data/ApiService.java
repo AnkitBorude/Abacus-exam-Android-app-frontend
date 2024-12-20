@@ -3,6 +3,7 @@ package com.example.abacusapplication.data;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -70,6 +71,18 @@ public interface ApiService {
 
     @GET("student")
     Call<ApiResponse<List<StudentresultInfo>>> getStudents(@Query("name") String queryName, @Query("class") String studentClass,@Query("level") String studentLevel);
+
+    @DELETE("student/{studentId}")
+    Call<ApiResponse<String>> deleteStudent(@Path("studentId") String studentId);
+
+    @DELETE("student/{studentId}/clear")
+    Call<ApiResponse<String>> deleteFullStudent(@Path ("studentId") String studentId);
+
+    @DELETE ("exam/{examId}")
+    Call<ApiResponse<String>> deleteExam(@Path("examId") String examId);
+
+    @DELETE ("exam/{examId}/results")
+    Call<ApiResponse<String>> deleteResults(@Path("examId") String examId);
     class Echoreponse{
        public boolean echoed;
     }

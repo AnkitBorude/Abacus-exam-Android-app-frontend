@@ -24,6 +24,10 @@ public class StudentresultInfo {
     @SerializedName("phone_no")
     private String studentPhoneNo;
 
+
+
+    @SerializedName("is_deleted")
+    private Boolean isDeleted;
     // Getters and setters
 
     public String getId() {
@@ -78,6 +82,13 @@ public class StudentresultInfo {
         return studentPhoneNo;
     }
 
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
     public void setStudentPhoneNo(String studentPhoneNo) {
         this.studentPhoneNo = studentPhoneNo;
     }

@@ -1,5 +1,6 @@
 package com.example.abacusapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
@@ -174,16 +176,106 @@ public class AdminViewAllStudents extends AppCompatActivity {
             TextView textViewStudentPhone = studentCard.findViewById(R.id.textViewStudentPhone);
 
             Button buttonAttend = studentCard.findViewById(R.id.buttonAttend);
-
+            Button buttonMoreoptions=studentCard.findViewById(R.id.buttonMoreOptions);
             textViewStudentName.setText(student.getStudentName());
             textViewStudentEmail.setText("Email: " + student.getStudentEmail());
             textViewStudentLevel.setText("Level: " + student.getStudentLevel());
             textViewStudentClass.setText("Class: " + student.getStudentClass());
             textViewStudentPhone.setText("Phone: " + student.getStudentPhoneNo());
             buttonAttend.setVisibility(View.GONE);
+            buttonMoreoptions.setOnClickListener(view->{
+                showOptionsDialog(linearLayoutStudents,studentCard, student.getStudentId());
+            });
             // Add the card to the LinearLayout
             linearLayoutStudents.addView(studentCard);
             progressIndicator.setVisibility(View.GONE);
         }
+    }
+
+    private void deleteStudent(String studentId,LinearLayout parentLayout,View card)
+    {
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deleteStudent(studentId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    parentLayout.removeView(card);
+                    progressIndicator.setVisibility(View.GONE);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void deleteStudentFull(String studentId,LinearLayout parentLayout,View card)
+    {
+        progressIndicator.setVisibility(View.VISIBLE);
+        RetrofitClient client=RetrofitClient.getInstance();
+        ApiService apiService = client.getApi();
+        Call<ApiResponse<String>> call=apiService.deleteFullStudent(studentId);
+        call.enqueue(new Callback<ApiResponse<String>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<String> response1 = response.body();
+                    Toast.makeText(getBaseContext(),response1.getData(),Toast.LENGTH_SHORT).show();
+                    parentLayout.removeView(card);
+                    progressIndicator.setVisibility(View.GONE);
+                } else {
+                    ApiError error = client.convertError(response.errorBody());
+                    Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();
+                    progressIndicator.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void showOptionsDialog(LinearLayout parentLayout,View card,String studentId)
+    {
+        String[] options = {"Delete", "Delete All Records"};
+
+        // Build the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(AdminViewAllStudents.this);
+        builder.setTitle("Student Options");
+
+        // Set the options in the dialog
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: // Delete
+                        Toast.makeText(AdminViewAllStudents.this, "Deleting student...", Toast.LENGTH_SHORT).show();
+                        deleteStudent(studentId,parentLayout,card);
+                        break;
+                    case 1: // DeleteFull
+                        Toast.makeText(AdminViewAllStudents.this, "Deleting complete student record...", Toast.LENGTH_SHORT).show();
+                        deleteStudentFull(studentId,parentLayout,card);
+                        break;
+                    case 2: // View More Info
+                        Toast.makeText(AdminViewAllStudents.this, "View More Info for Card", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+        // Show the dialog
+        builder.show();
     }
 }
