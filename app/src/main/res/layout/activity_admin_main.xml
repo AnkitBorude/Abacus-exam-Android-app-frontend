@@ -242,6 +242,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/updateExamCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -284,6 +285,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/updateStudentCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -313,6 +315,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/reportsCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -355,6 +358,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/updateProfileCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -384,6 +388,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/helpCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

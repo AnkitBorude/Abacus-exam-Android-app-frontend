@@ -225,6 +225,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/updateProfile"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -255,6 +256,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
+                android:id="@+id/helpCard"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

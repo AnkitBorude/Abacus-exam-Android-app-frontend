@@ -16,6 +16,9 @@ public class StudentMainActivity extends AppCompatActivity {
         CardView card=findViewById(R.id.attend_exam);
         CardView resultCard=findViewById(R.id.resultCard);
         CardView downloadResult=findViewById(R.id.studentDownloadResult);
+        CardView profileCard=findViewById(R.id.profileCard);
+        CardView updateProfile=findViewById(R.id.updateProfile);
+        CardView helpCard=findViewById(R.id.helpCard);
         Button logoutbtn=findViewById(R.id.logoutbutton);
         card.setOnClickListener(view->{
             Intent intent=new Intent(StudentMainActivity.this,StudentAllExam.class);
@@ -31,7 +34,19 @@ public class StudentMainActivity extends AppCompatActivity {
             intent.putExtra("type","DOWNLOAD");
             startActivity(intent);
         });
+        profileCard.setOnClickListener(view->{
+            Intent intent=new Intent(StudentMainActivity.this, ComingsoonActivity.class);
+            startActivity(intent);
+        });
+        updateProfile.setOnClickListener(view->{
+            Intent intent=new Intent(StudentMainActivity.this, ComingsoonActivity.class);
+            startActivity(intent);
+        });
 
+        helpCard.setOnClickListener(view->{
+            Intent intent=new Intent(StudentMainActivity.this, ComingsoonActivity.class);
+            startActivity(intent);
+        });
         logoutbtn.setOnClickListener(view->{
             finish();
         });
