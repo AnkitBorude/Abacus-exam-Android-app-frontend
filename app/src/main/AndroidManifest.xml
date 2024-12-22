@@ -16,11 +16,14 @@
         android:theme="@style/Theme.AbacusApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ComingsoonActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminRegisterActivity"
             android:exported="false" />
         <activity
             android:name=".AdminViewAllStudents"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".StudentDownloadResult"
             android:exported="false" />
