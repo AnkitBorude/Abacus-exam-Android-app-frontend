@@ -82,7 +82,8 @@ public class AdminAllExamResult extends AppCompatActivity {
             TextView highestMarks=examCard.findViewById(R.id.texthighestscore);
             TextView badge=examCard.findViewById(R.id.badge);
             Button buttonAttend = examCard.findViewById(R.id.buttonAttend);
-
+            Button buttonMoreoptions=examCard.findViewById(R.id.buttonMoreOptions);
+            buttonMoreoptions.setVisibility(View.GONE);
             textViewTitle.setText(exam.getTitle());
             textViewDuration.setText("Duration: " + exam.getDuration() + " mins");
             textViewLevel.setText("Level: " + exam.getLevel());

@@ -81,7 +81,9 @@ public class AdminAllStudentExam extends AppCompatActivity {
             TextView textViewStudentPhone = studentCard.findViewById(R.id.textViewStudentPhone);
 
             Button buttonAttend = studentCard.findViewById(R.id.buttonAttend);
+            Button buttonMoreoptions=studentCard.findViewById(R.id.buttonMoreOptions);
 
+            buttonMoreoptions.setVisibility(View.GONE);
             textViewStudentName.setText(student.getStudentName());
             textViewStudentEmail.setText("Email: " + student.getStudentEmail());
             textViewStudentLevel.setText("Level: " + student.getStudentLevel());
