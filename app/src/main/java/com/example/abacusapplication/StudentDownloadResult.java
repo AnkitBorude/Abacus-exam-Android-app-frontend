@@ -1,6 +1,10 @@
 package com.example.abacusapplication;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -39,10 +43,23 @@ public class StudentDownloadResult extends AppCompatActivity {
     private List<Exam> examList;
     private CircularProgressIndicator progressIndicator;
     private String examId;
+    NotificationManager notificationManager;
+    Notification.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_download_result);
+
+       notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        //building the notification through notifiation builder where we can
+       builder= new Notification.Builder(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId("My channel");
+            notificationManager.createNotificationChannel(
+                    new NotificationChannel("My channel","New Channel",NotificationManager.IMPORTANCE_HIGH));
+        }
 
         linearLayoutExamResults = findViewById(R.id.linearLayoutExams);
         Intent intent = getIntent();
@@ -90,6 +107,9 @@ public class StudentDownloadResult extends AppCompatActivity {
             TextView textViewExamMarks = examResultCard.findViewById(R.id.textViewExamMarks);
             Button downloadbtn=examResultCard.findViewById(R.id.downloadbtn);
             downloadbtn.setVisibility(View.VISIBLE);
+
+            Button deleteResultbtn=examResultCard.findViewById(R.id.buttonDelete);
+            deleteResultbtn.setVisibility(View.GONE);
             TextView textViewPercentage = examResultCard.findViewById(R.id.textViewPercentage);
             TextView textViewAttempt =examResultCard.findViewById(R.id.textViewAttempt);
             int percentage = (int) ((result.getScore() / (double) result.getExamMarks()) * 100);
@@ -120,7 +140,7 @@ public class StudentDownloadResult extends AppCompatActivity {
         RetrofitClient client=RetrofitClient.getInstance();
         ApiService apiService = client.getApi();
 
-        Call<ResponseBody> call=apiService.getStudentresultPdf(resultId);
+        Call<ResponseBody> call=apiService.getStudentresultPdf(resultId,"pdf");
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -128,6 +148,11 @@ public class StudentDownloadResult extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     //passing the resultbody and downloadable file name here
                     savePdf(response.body(),"abacus-result"+resultId+".pdf");
+
+                    builder.setContentTitle("Result Has been Downloaded..");
+                    builder.setContentText("results downloaded at /Downloads/abacusapp/results");
+                    builder.setSmallIcon(R.drawable.baseline_download_24);
+                    notificationManager.notify(100,builder.build());
                 } else {
                     ApiError error = client.convertError(response.errorBody());
                     Toast.makeText(getBaseContext(),error.getError(),Toast.LENGTH_LONG).show();

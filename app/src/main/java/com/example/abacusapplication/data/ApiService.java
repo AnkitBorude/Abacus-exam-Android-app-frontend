@@ -66,8 +66,8 @@ public interface ApiService {
     @GET("exam/{examId}/students")
     Call<ApiResponse<List<StudentresultInfo>>> getStudentsofExam(@Path("examId") String examId);
 
-    @GET("result/{resultId}/pdf")
-    Call<ResponseBody> getStudentresultPdf(@Path("resultId") String resultId);
+    @GET("result/{resultId}")
+    Call<ResponseBody> getStudentresultPdf(@Path("resultId") String resultId,@Query("format") String format);
 
     @GET("student")
     Call<ApiResponse<List<StudentresultInfo>>> getStudents(@Query("name") String queryName, @Query("class") String studentClass,@Query("level") String studentLevel);
