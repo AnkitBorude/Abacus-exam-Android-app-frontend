@@ -1,4 +1,4 @@
-package com.example.abacusapplication.ui.studentLogin;
+package com.example.abacusapplication.homepagefragments.studentLogin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.example.abacusapplication.services.JwtTokenManagerService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
-import com.example.abacusapplication.ui.StudentRegistrationActivity;
+import com.example.abacusapplication.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;

@@ -7,8 +7,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.abacusapplication.ui.AdminAllExam;
-
 
 public class AdminMainActivity extends AppCompatActivity {
 

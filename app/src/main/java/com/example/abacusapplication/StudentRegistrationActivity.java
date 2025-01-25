@@ -1,4 +1,4 @@
-package com.example.abacusapplication.ui;
+package com.example.abacusapplication;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.abacusapplication.R;
 import com.example.abacusapplication.services.ApiEndpointsService;
 import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;

@@ -1,4 +1,4 @@
-package com.example.abacusapplication.ui.connect;
+package com.example.abacusapplication.homepagefragments.connect;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

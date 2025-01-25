@@ -1,4 +1,4 @@
-package com.example.abacusapplication.ui.adminLogin;
+package com.example.abacusapplication.homepagefragments.adminLogin;
 
 import android.content.Intent;
 import android.os.Bundle;

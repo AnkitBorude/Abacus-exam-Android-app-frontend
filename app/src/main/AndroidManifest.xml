@@ -45,7 +45,7 @@
             android:name=".StudentAllExamResult"
             android:exported="false" />
         <activity
-            android:name=".ui.AdminAllExam"
+            android:name=".AdminAllExam"
             android:exported="false" />
         <activity
             android:name=".StudentFinalResult"
@@ -66,7 +66,7 @@
             android:name=".AdminMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.StudentRegistrationActivity"
+            android:name=".StudentRegistrationActivity"
             android:exported="true" />
         <activity
             android:name=".AdminCreateExam"

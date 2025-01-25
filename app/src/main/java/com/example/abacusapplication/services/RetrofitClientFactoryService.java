@@ -27,8 +27,8 @@ public class RetrofitClientFactoryService {
 
     // 4. Private constructor for Singleton pattern
     private RetrofitClientFactoryService(String baseurl, Context context) {
-        this.baseurl=" ";
-        this.baseurl="http://"+baseurl+"/api/v1/";
+        this.baseurl=baseurl;
+        //this.baseurl="http://"+baseurl+"/api/v1/";
         // 5. Logging interceptor setup
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
