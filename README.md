@@ -92,7 +92,44 @@
 </ol>
 <div align="center">
 <h2>📷Screenshots</h2>
-
+<h3>Screenshot 1</h3>
+    <img src="./screenshots/screenshot1.jpeg" alt="Screenshot 1" width="360"/>
+    <h3>Screenshot 2</h3>
+    <img src="./screenshots/screenshot2.jpeg" alt="Screenshot 2" width="360"/>
+    <h3>Screenshot 3</h3>
+    <img src="./screenshots/screenshot3.jpeg" alt="Screenshot 3" width="360"/>
+    <h3>Screenshot 4</h3>
+    <img src="./screenshots/screenshot4.jpeg" alt="Screenshot 4" width="360"/>
+    <h3>Screenshot 5</h3>
+    <img src="./screenshots/screenshot5.jpeg" alt="Screenshot 5" width="360"/>
+    <h3>Screenshot 6</h3>
+    <img src="./screenshots/screenshot6.jpeg" alt="Screenshot 6" width="360"/>
+    <h3>Screenshot 7</h3>
+    <img src="./screenshots/screenshot7.jpeg" alt="Screenshot 7" width="360"/>
+    <h3>Screenshot 8</h3>
+    <img src="./screenshots/screenshot8.jpeg" alt="Screenshot 8" width="360"/>
+    <h3>Screenshot 9</h3>
+    <img src="./screenshots/screenshot9.jpeg" alt="Screenshot 9" width="360"/>
+    <h3>Screenshot 10</h3>
+    <img src="./screenshots/screenshot10.jpeg" alt="Screenshot 10" width="360"/>
+    <h3>Screenshot 11</h3>
+    <img src="./screenshots/screenshot11.jpeg" alt="Screenshot 11" width="360"/>
+    <h3>Screenshot 12</h3>
+    <img src="./screenshots/screenshot12.jpeg" alt="Screenshot 12" width="360"/>
+    <h3>Screenshot 13</h3>
+    <img src="./screenshots/screenshot13.jpeg" alt="Screenshot 13" width="360"/>
+    <h3>Screenshot 14</h3>
+    <img src="./screenshots/screenshot14.jpeg" alt="Screenshot 14" width="360"/>
+    <h3>Screenshot 15</h3>
+    <img src="./screenshots/screenshot15.jpeg" alt="Screenshot 15" width="360"/>
+    <h3>Screenshot 16</h3>
+    <img src="./screenshots/screenshot16.jpeg" alt="Screenshot 16" width="360"/>
+    <h3>Screenshot 17</h3>
+    <img src="./screenshots/screenshot17.jpeg" alt="Screenshot 17" width="360"/>
+    <h3>Screenshot 18</h3>
+    <img src="./screenshots/screenshot18.jpeg" alt="Screenshot 18" width="360"/>
+    <h3>Screenshot 19</h3>
+    <img src="./screenshots/screenshot19.jpeg" alt="Screenshot 19" width="360"/>
 </div>
 
 <h2>🤝 Contributing</h2>
@@ -104,5 +141,7 @@
 </ol>
 
 <div align="center">
+  <h3><b>
   Made with ❤️ by Ankit Borude
+  </b></h3>
 </div>
