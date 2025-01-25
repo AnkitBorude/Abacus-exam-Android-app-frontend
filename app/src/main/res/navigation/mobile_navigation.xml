@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.abacusapplication.ui.home.HomeFragment"
+        android:name="com.example.abacusapplication.ui.studentLogin.StudentLoginFragment"
         android:label="Student Login"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.abacusapplication.ui.dashboard.DashboardFragment"
+        android:name="com.example.abacusapplication.ui.adminLogin.AdminLoginFragment"
         android:label="Admin Login"
         tools:layout="@layout/fragment_dashboard"/>
     <fragment
