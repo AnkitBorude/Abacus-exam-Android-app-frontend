@@ -91,7 +91,6 @@
 <li>Build and Run in Android Studio</li>
 </ol>
 <div align="center">
-  
 <h2>📷Screenshots</h2>
 
 </div>
