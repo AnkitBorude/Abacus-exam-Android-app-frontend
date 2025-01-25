@@ -4,32 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abacusapplication.adapters.McqAdapter;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
-import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.Question;
 import com.example.abacusapplication.models.Result;
 
 import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +31,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Student_Mcq_Exam extends AppCompatActivity {
-    RetrofitClient client;
-    ApiService apiService;
+    RetrofitClientFactoryService client;
+    ApiEndpointsService apiEndpointsService;
     private McqAdapter mcqAdapter;
     private List<Question> questionList;
     private RecyclerView recyclerView;
@@ -85,9 +76,9 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         Context context=this;
 
 
-        this.client =RetrofitClient.getInstance();
-        this.apiService = this.client.getApi();
-        Call<ApiResponse<List<Question>>> call=this.apiService.getQuestions(examId);
+        this.client = RetrofitClientFactoryService.getInstance();
+        this.apiEndpointsService = this.client.getApi();
+        Call<ApiResponse<List<Question>>> call=this.apiEndpointsService.getQuestions(examId);
         call.enqueue(new Callback<ApiResponse<List<Question>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Question>>> call, Response<ApiResponse<List<Question>>> response) {
@@ -176,7 +167,7 @@ public class Student_Mcq_Exam extends AppCompatActivity {
         result.setTimeTaken(timeTaken);
         result.setTotalCorrect(correctAnswers);
 
-        Call <ApiResponse<String>> call=this.apiService.createResult(result);
+        Call <ApiResponse<String>> call=this.apiEndpointsService.createResult(result);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {

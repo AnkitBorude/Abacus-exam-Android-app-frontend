@@ -1,4 +1,4 @@
-package com.example.abacusapplication.data;
+package com.example.abacusapplication.services;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,10 +14,8 @@ import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreateExam;
 import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.ExamResult;
-import com.example.abacusapplication.models.Login;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
-import com.example.abacusapplication.models.LoginData;
 import com.example.abacusapplication.models.Question;
 import com.example.abacusapplication.models.Result;
 import com.example.abacusapplication.models.Student;
@@ -25,7 +23,7 @@ import com.example.abacusapplication.models.StudentresultInfo;
 
 import java.util.List;
 
-public interface ApiService {
+public interface ApiEndpointsService {
     @POST("student/login")
     Call<LoginResponse> studentLogin(@Body LoginRequest req);
     @POST("admin/login")

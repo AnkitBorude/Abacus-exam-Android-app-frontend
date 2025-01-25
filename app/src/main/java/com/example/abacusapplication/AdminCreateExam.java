@@ -9,18 +9,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.CreateExam;
-import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
@@ -139,8 +134,8 @@ public class AdminCreateExam extends AppCompatActivity {
             // Log the CreateExam object to verify
             Log.d("CreateExam Object", createExam.toString());
 
-            RetrofitClient client=RetrofitClient.getInstance();
-            ApiService service= client.getApi();
+            RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+            ApiEndpointsService service= client.getApi();
             Call<ApiResponse<String>> call=service.createExam(createExam);
             call.enqueue(new Callback<ApiResponse<String>>() {
                 @Override

@@ -13,14 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
@@ -67,9 +64,9 @@ public class StudentDownloadResult extends AppCompatActivity {
 
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<ExamResult>>> call=apiService.getStudentResult(this.examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<List<ExamResult>>> call= apiEndpointsService.getStudentResult(this.examId);
         call.enqueue(new Callback<ApiResponse<List<ExamResult>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<ExamResult>>> call, Response<ApiResponse<List<ExamResult>>> response) {
@@ -137,10 +134,10 @@ public class StudentDownloadResult extends AppCompatActivity {
     private void downloadPdf(String resultId)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
 
-        Call<ResponseBody> call=apiService.getStudentresultPdf(resultId,"pdf");
+        Call<ResponseBody> call= apiEndpointsService.getStudentresultPdf(resultId,"pdf");
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

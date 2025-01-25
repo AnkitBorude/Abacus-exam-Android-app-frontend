@@ -11,14 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -37,9 +35,9 @@ public class StudentAllExam extends AppCompatActivity {
 
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<Exam>>> call=apiService.getExams();
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<List<Exam>>> call= apiEndpointsService.getExams();
         call.enqueue(new Callback<ApiResponse<List<Exam>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Exam>>> call, Response<ApiResponse<List<Exam>>> response) {

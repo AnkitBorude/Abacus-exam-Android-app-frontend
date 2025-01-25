@@ -9,14 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
@@ -41,9 +37,9 @@ public class AdminAllExamResult extends AppCompatActivity {
 
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<Exam>>> call=apiService.getExams();
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<List<Exam>>> call= apiEndpointsService.getExams();
         call.enqueue(new Callback<ApiResponse<List<Exam>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Exam>>> call, Response<ApiResponse<List<Exam>>> response) {

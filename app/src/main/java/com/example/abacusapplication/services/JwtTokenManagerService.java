@@ -1,22 +1,22 @@
-package com.example.abacusapplication.data;
+package com.example.abacusapplication.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-public class TokenManager {
+public class JwtTokenManagerService {
     private static String cachedToken;
-    private static TokenManager instance;
+    private static JwtTokenManagerService instance;
     private SharedPreferences prefs;
 
-    private TokenManager(Context context) {
+    private JwtTokenManagerService(Context context) {
         prefs = context.getSharedPreferences("AuthPrefs", Context.MODE_PRIVATE);
         prefs.edit().remove("jwt_token").apply();
         cachedToken = prefs.getString("jwt_token", null);
     }
-    public static synchronized TokenManager getInstance(Context context) {
+    public static synchronized JwtTokenManagerService getInstance(Context context) {
         if (instance == null) {
-            instance = new TokenManager(context);
+            instance = new JwtTokenManagerService(context);
         }
         return instance;
     }

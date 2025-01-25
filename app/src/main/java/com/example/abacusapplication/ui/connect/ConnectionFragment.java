@@ -13,10 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.abacusapplication.R;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
-import com.example.abacusapplication.models.ApiError;
-import com.example.abacusapplication.models.LoginResponse;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;
@@ -25,7 +23,7 @@ import retrofit2.Response;
 
 public class ConnectionFragment extends Fragment {
     boolean isConnectionFailed=false;
-    RetrofitClient client;
+    RetrofitClientFactoryService client;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class ConnectionFragment extends Fragment {
         ip.setText("192.168.165.104:3000");
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
 
-        if(RetrofitClient.getInstance()!=null)
+        if(RetrofitClientFactoryService.getInstance()!=null)
         {
             btn.setBackgroundResource(R.drawable.roundbutton_green);
             btn.setText("RE-CONNECT");
@@ -44,15 +42,15 @@ public class ConnectionFragment extends Fragment {
         btn.setOnClickListener(view1->{
         progressIndicator.show();
 
-            client = RetrofitClient.updateInstance(ip.getText().toString(),getContext());
+            client = RetrofitClientFactoryService.updateInstance(ip.getText().toString(),getContext());
 
-            ApiService service= client.getApi();
-            Call<ApiService.Echoreponse> call=service.echo();
-            call.enqueue(new Callback<ApiService.Echoreponse>() {
+            ApiEndpointsService service= client.getApi();
+            Call<ApiEndpointsService.Echoreponse> call=service.echo();
+            call.enqueue(new Callback<ApiEndpointsService.Echoreponse>() {
                 @Override
-                public void onResponse(Call<ApiService.Echoreponse> call, Response<ApiService.Echoreponse> response) {
+                public void onResponse(Call<ApiEndpointsService.Echoreponse> call, Response<ApiEndpointsService.Echoreponse> response) {
                     if (response.isSuccessful()) {
-                        ApiService.Echoreponse response1 = response.body();
+                        ApiEndpointsService.Echoreponse response1 = response.body();
                         progressIndicator.setVisibility(View.GONE);
                         Toast.makeText(getContext(),"Connection Successfull",Toast.LENGTH_LONG).show();
                         view1.setBackgroundResource(R.drawable.roundbutton_green);
@@ -64,7 +62,7 @@ public class ConnectionFragment extends Fragment {
                     }
                 }
                 @Override
-                public void onFailure(Call<ApiService.Echoreponse> call, Throwable t) {
+                public void onFailure(Call<ApiEndpointsService.Echoreponse> call, Throwable t) {
                     progressIndicator.setVisibility(View.GONE);
                     isConnectionFailed=true;
                     view1.setBackgroundResource(R.drawable.roundbutton_red);

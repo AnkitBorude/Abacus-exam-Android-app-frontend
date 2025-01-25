@@ -1,13 +1,9 @@
-package com.example.abacusapplication.data;
-
-import static androidx.core.content.ContentProviderCompat.requireContext;
+package com.example.abacusapplication.services;
 
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.abacusapplication.MainActivity;
 import com.example.abacusapplication.models.ApiError;
 
 import java.lang.annotation.Annotation;
@@ -19,18 +15,18 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClient {
+public class RetrofitClientFactoryService {
     // 1. Base URL for all API calls
     private String baseurl;
 
     // 2. Singleton instance
-    private static RetrofitClient instance;
+    private static RetrofitClientFactoryService instance;
 
     // 3. Retrofit object
     private Retrofit retrofit;
 
     // 4. Private constructor for Singleton pattern
-    private RetrofitClient(String baseurl,Context context) {
+    private RetrofitClientFactoryService(String baseurl, Context context) {
         this.baseurl=" ";
         this.baseurl="http://"+baseurl+"/api/v1/";
         // 5. Logging interceptor setup
@@ -40,7 +36,7 @@ public class RetrofitClient {
        Log.d("Baseurl",this.baseurl);
         // 6. OkHttpClient setup with interceptor
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new AuthInterceptor(context))
+                .addInterceptor(new AuthInterceptorService(context))
                 .addInterceptor(logging)
                 // Additional options:
                 // .connectTimeout(30, TimeUnit.SECONDS)
@@ -57,13 +53,13 @@ public class RetrofitClient {
     }
 
     // 8. Singleton getInstance method
-    public static synchronized  RetrofitClient updateInstance(String baseurl,Context context)
+    public static synchronized RetrofitClientFactoryService updateInstance(String baseurl, Context context)
     {
         instance=null;
-        instance=new RetrofitClient(baseurl,context);
+        instance=new RetrofitClientFactoryService(baseurl,context);
         return instance;
     }
-    public static synchronized RetrofitClient getInstance(){
+    public static synchronized RetrofitClientFactoryService getInstance(){
         if (instance == null) {
        return null;
         }
@@ -82,8 +78,8 @@ public class RetrofitClient {
             return null;
         }
     }
-    public ApiService getApi() {
-        return retrofit.create(ApiService.class);
+    public ApiEndpointsService getApi() {
+        return retrofit.create(ApiEndpointsService.class);
     }
 
 }

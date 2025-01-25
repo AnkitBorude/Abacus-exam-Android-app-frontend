@@ -1,7 +1,6 @@
 package com.example.abacusapplication.ui;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.AdminViewAllStudents;
 import com.example.abacusapplication.R;
-import com.example.abacusapplication.StudentAllExam;
-import com.example.abacusapplication.Student_Mcq_Exam;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Exam;
@@ -52,9 +44,9 @@ public class AdminAllExam extends AppCompatActivity {
     private void fetchExam()
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<Exam>>> call=apiService.getExams();
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<List<Exam>>> call= apiEndpointsService.getExams();
         call.enqueue(new Callback<ApiResponse<List<Exam>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Exam>>> call, Response<ApiResponse<List<Exam>>> response) {
@@ -147,9 +139,9 @@ public class AdminAllExam extends AppCompatActivity {
     private void activateExam(String examId)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.activateExam(examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.activateExam(examId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
@@ -173,9 +165,9 @@ public class AdminAllExam extends AppCompatActivity {
     private void deActivateExam(String examId)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.deactivateExam(examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.deactivateExam(examId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
@@ -231,9 +223,9 @@ public class AdminAllExam extends AppCompatActivity {
     private void deleteExam(String examId,LinearLayout parentLayout,View card)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.deleteExam(examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.deleteExam(examId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
@@ -259,9 +251,9 @@ public class AdminAllExam extends AppCompatActivity {
     private void deleteResults(String examId)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.deleteResults(examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.deleteResults(examId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {

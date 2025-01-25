@@ -1,7 +1,6 @@
 package com.example.abacusapplication;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,16 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.StudentresultInfo;
@@ -39,8 +34,8 @@ public class AdminViewAllStudents extends AppCompatActivity {
     private LinearLayout linearLayoutStudents;
     private CircularProgressIndicator progressIndicator;
 
-    private RetrofitClient client;
-    private ApiService apiService;
+    private RetrofitClientFactoryService client;
+    private ApiEndpointsService apiEndpointsService;
 
     private Spinner classSpinner=null,levelSpinner=null;
 
@@ -55,8 +50,8 @@ public class AdminViewAllStudents extends AppCompatActivity {
         progressIndicator = findViewById(R.id.progress_circular);
 
         SearchView sview=findViewById(R.id.searchview);
-        this.client=RetrofitClient.getInstance();
-        this.apiService = this.client.getApi();
+        this.client= RetrofitClientFactoryService.getInstance();
+        this.apiEndpointsService = this.client.getApi();
         this.classSpinner=findViewById(R.id.classSpinner);
         this.levelSpinner=findViewById(R.id.levelSpinner);
 
@@ -140,7 +135,7 @@ public class AdminViewAllStudents extends AppCompatActivity {
         if(name.isEmpty()) {
             name=null;
         }
-        Call<ApiResponse<List<StudentresultInfo>>> call=this.apiService.getStudents(name,studentClass,studentLevel);
+        Call<ApiResponse<List<StudentresultInfo>>> call=this.apiEndpointsService.getStudents(name,studentClass,studentLevel);
         call.enqueue(new Callback<ApiResponse<List<StudentresultInfo>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<StudentresultInfo>>> call, Response<ApiResponse<List<StudentresultInfo>>> response) {
@@ -195,9 +190,9 @@ public class AdminViewAllStudents extends AppCompatActivity {
     private void deleteStudent(String studentId,LinearLayout parentLayout,View card)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.deleteStudent(studentId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.deleteStudent(studentId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
@@ -223,9 +218,9 @@ public class AdminViewAllStudents extends AppCompatActivity {
     private void deleteStudentFull(String studentId,LinearLayout parentLayout,View card)
     {
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<String>> call=apiService.deleteFullStudent(studentId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<String>> call= apiEndpointsService.deleteFullStudent(studentId);
         call.enqueue(new Callback<ApiResponse<String>>() {
             @Override
             public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {

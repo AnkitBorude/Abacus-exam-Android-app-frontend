@@ -12,19 +12,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.abacusapplication.AdminMainActivity;
 import com.example.abacusapplication.AdminRegisterActivity;
 import com.example.abacusapplication.R;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
-import com.example.abacusapplication.data.TokenManager;
-import com.example.abacusapplication.databinding.FragmentDashboardBinding;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
+import com.example.abacusapplication.services.JwtTokenManagerService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
-import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;
@@ -34,7 +31,7 @@ import retrofit2.Response;
 public class DashboardFragment extends Fragment {
 
 
-    private RetrofitClient client;
+    private RetrofitClientFactoryService client;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,28 +41,26 @@ public class DashboardFragment extends Fragment {
         EditText password=view.findViewById(R.id.adminpassword);
         TextView signupbtn=view.findViewById(R.id.adminregisterbtn);
         CircularProgressIndicator progressIndicator = view.findViewById(R.id.progress_circular);
-        username.setText("ankit123");
-        password.setText("ankit@123");
         loginbutton.setOnClickListener(v->{
             progressIndicator.show();
             String usernameText = username.getText().toString();
             String passwordText = password.getText().toString();
 
-            client = RetrofitClient.getInstance();
+            client = RetrofitClientFactoryService.getInstance();
             if(client==null)
             {
                 progressIndicator.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Connect to server First",Toast.LENGTH_LONG).show();
                 return;
             }
-            ApiService apiService = client.getApi();
-            Call<LoginResponse> call =apiService.adminLogin(new LoginRequest(usernameText,passwordText));
+            ApiEndpointsService apiEndpointsService = client.getApi();
+            Call<LoginResponse> call = apiEndpointsService.adminLogin(new LoginRequest(usernameText,passwordText));
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
-                        TokenManager manager=TokenManager.getInstance(getContext());
+                        JwtTokenManagerService manager= JwtTokenManagerService.getInstance(getContext());
                         manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
 

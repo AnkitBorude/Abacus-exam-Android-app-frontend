@@ -9,17 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
-import com.example.abacusapplication.models.Exam;
 import com.example.abacusapplication.models.StudentresultInfo;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -45,9 +40,9 @@ public class AdminAllStudentExam extends AppCompatActivity {
 
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
-        Call<ApiResponse<List<StudentresultInfo>>> call=apiService.getStudentsofExam(this.examId);
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
+        Call<ApiResponse<List<StudentresultInfo>>> call= apiEndpointsService.getStudentsofExam(this.examId);
         call.enqueue(new Callback<ApiResponse<List<StudentresultInfo>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<StudentresultInfo>>> call, Response<ApiResponse<List<StudentresultInfo>>> response) {

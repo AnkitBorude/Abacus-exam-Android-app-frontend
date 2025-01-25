@@ -2,24 +2,17 @@ package com.example.abacusapplication;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
-import com.example.abacusapplication.models.Student;
-import com.example.abacusapplication.ui.StudentRegistrationActivity;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;
@@ -81,14 +74,14 @@ public class AdminRegisterActivity extends AppCompatActivity {
             progressIndicator.show();
             Admin admin=new Admin(fullName,username,email,password);
 
-            RetrofitClient client=RetrofitClient.getInstance();
+            RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
             if(client==null)
             {
                 progressIndicator.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Connect to server First",Toast.LENGTH_LONG).show();
                 return false;
             }
-            ApiService service= client.getApi();
+            ApiEndpointsService service= client.getApi();
             Call<ApiResponse<String>> call=service.adminRegister(admin);
 
             call.enqueue(new Callback<ApiResponse<String>>() {

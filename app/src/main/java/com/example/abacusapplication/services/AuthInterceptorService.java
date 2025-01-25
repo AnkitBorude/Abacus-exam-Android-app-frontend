@@ -1,4 +1,4 @@
-package com.example.abacusapplication.data;
+package com.example.abacusapplication.services;
 
 import android.content.Context;
 
@@ -9,12 +9,12 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 import okhttp3.Request;
-public class AuthInterceptor implements Interceptor {
+public class AuthInterceptorService implements Interceptor {
     private String token=null;
-    TokenManager manager;
-    AuthInterceptor(Context context)
+    JwtTokenManagerService manager;
+    AuthInterceptorService(Context context)
     {
-        manager=TokenManager.getInstance(context);
+        manager= JwtTokenManagerService.getInstance(context);
     }
     @NonNull
     @Override

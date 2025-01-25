@@ -2,7 +2,6 @@ package com.example.abacusapplication.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,30 +12,25 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.abacusapplication.MainActivity;
 import com.example.abacusapplication.R;
 import com.example.abacusapplication.StudentMainActivity;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
-import com.example.abacusapplication.data.TokenManager;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
+import com.example.abacusapplication.services.JwtTokenManagerService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.LoginRequest;
 import com.example.abacusapplication.models.LoginResponse;
 import com.example.abacusapplication.ui.StudentRegistrationActivity;
-import com.google.android.material.progressindicator.BaseProgressIndicator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    RetrofitClient client;
+    RetrofitClientFactoryService client;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -52,21 +46,21 @@ public class HomeFragment extends Fragment {
             String usernameText = username.getText().toString();
             String passwordText = password.getText().toString();
 
-            client = RetrofitClient.getInstance();
+            client = RetrofitClientFactoryService.getInstance();
             if(client==null)
             {
                 progressIndicator.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Connect to server First",Toast.LENGTH_LONG).show();
                 return;
             }
-            ApiService apiService = client.getApi();
-            Call<LoginResponse> call =apiService.studentLogin(new LoginRequest(usernameText,passwordText));
+            ApiEndpointsService apiEndpointsService = client.getApi();
+            Call<LoginResponse> call = apiEndpointsService.studentLogin(new LoginRequest(usernameText,passwordText));
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
                         LoginResponse response1 = response.body();
-                        TokenManager manager=TokenManager.getInstance(getContext());
+                        JwtTokenManagerService manager= JwtTokenManagerService.getInstance(getContext());
                         manager.setToken(response1.getData().getToken());
                         progressIndicator.setVisibility(View.GONE);
 

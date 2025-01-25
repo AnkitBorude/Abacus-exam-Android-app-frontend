@@ -1,25 +1,17 @@
 package com.example.abacusapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
-import com.example.abacusapplication.data.TokenManager;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.Admin;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
-import com.example.abacusapplication.models.LoginRequest;
-import com.example.abacusapplication.models.LoginResponse;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import retrofit2.Call;
@@ -32,13 +24,13 @@ public class AdminProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_profile);
-        RetrofitClient client=RetrofitClient.getInstance();
-        ApiService apiService = client.getApi();
+        RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
+        ApiEndpointsService apiEndpointsService = client.getApi();
         CircularProgressIndicator progressIndicator = findViewById(R.id.progress_circular);
         TextView fullname=findViewById(R.id.fullNameTextView);
         TextView email=findViewById(R.id.emailTextView);
         TextView username=findViewById(R.id.usernameTextView);
-        Call<ApiResponse<Admin>> call =apiService.getAdmin();
+        Call<ApiResponse<Admin>> call = apiEndpointsService.getAdmin();
         call.enqueue(new Callback<ApiResponse<Admin>>() {
             @Override
             public void onResponse(Call<ApiResponse<Admin>> call, Response<ApiResponse<Admin>> response) {

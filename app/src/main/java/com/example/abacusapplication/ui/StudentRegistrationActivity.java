@@ -11,8 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.abacusapplication.R;
-import com.example.abacusapplication.data.ApiService;
-import com.example.abacusapplication.data.RetrofitClient;
+import com.example.abacusapplication.services.ApiEndpointsService;
+import com.example.abacusapplication.services.RetrofitClientFactoryService;
 import com.example.abacusapplication.models.ApiError;
 import com.example.abacusapplication.models.ApiResponse;
 import com.example.abacusapplication.models.Student;
@@ -95,14 +95,14 @@ public class StudentRegistrationActivity extends AppCompatActivity {
         {
             progressIndicator.show();
             Student student=new Student(fullName,username,studentClass,level,email,phoneNo,password);
-            RetrofitClient client=RetrofitClient.getInstance();
+            RetrofitClientFactoryService client= RetrofitClientFactoryService.getInstance();
             if(client==null)
             {
                 progressIndicator.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Connect to server First",Toast.LENGTH_LONG).show();
                 return false;
             }
-            ApiService service= client.getApi();
+            ApiEndpointsService service= client.getApi();
             Call<ApiResponse<String>> call=service.studentRegister(student);
 
             call.enqueue(new Callback<ApiResponse<String>>() {
